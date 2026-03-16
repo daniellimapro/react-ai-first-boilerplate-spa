@@ -243,7 +243,7 @@ const philosophyLink = computed(() =>
     : '/react-ai-first-boilerplate-spa/guide/philosophy'
 )
 
-const editorTabs = ['route.tsx', 'store.ts', 'use-auth.ts']
+const editorTabs = ['route.tsx', 'use-auth.ts']
 const activeTabIndex = ref(0)
 const activeTab = computed(() => editorTabs[activeTabIndex.value])
 
@@ -260,22 +260,7 @@ const codeSnippets: Record<string, string[]> = {
     `  component: DashboardPage,`,
     `})`,
   ],
-  'store.ts': [
-    `import { create } from 'zustand'`,
-    `import { persist } from 'zustand/middleware'`,
-    ``,
-    `export const useAuthStore = create<AuthState>()(`,
-    `  persist(`,
-    `    (set) => ({`,
-    `      token: null,`,
-    `      isAuthenticated: false,`,
-    `      setAuth: (token, user) => set({ token, user, isAuthenticated: true }),`,
-    `    }),`,
-    `    { name: 'auth-storage' }`,
-    `  )`,
-    `)`,
-  ],
-  'use-auth.ts': [
+'use-auth.ts': [
     `import { useAuthStore } from '@/shared/stores/auth.store'`,
     ``,
     `export function useAuth() {`,
@@ -663,6 +648,7 @@ html.dark .home-page {
 .hero__grid {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image:
     linear-gradient(var(--hp-grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--hp-grid-line) 1px, transparent 1px);
