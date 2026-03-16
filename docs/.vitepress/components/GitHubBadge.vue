@@ -18,9 +18,9 @@
 .github-badge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px 4px 4px;
-  border-radius: 20px;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  border-radius: 8px;
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-2);

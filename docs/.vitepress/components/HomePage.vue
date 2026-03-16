@@ -34,24 +34,26 @@
                 <span class="code-editor__dot code-editor__dot--green" />
               </div>
               <div class="code-editor__tabs">
-                <button
-                  v-for="tab in editorTabs"
+                <span
+                  v-for="(tab, i) in editorTabs"
                   :key="tab"
                   class="code-editor__tab"
-                  :class="{ 'code-editor__tab--active': activeTab === tab }"
-                  @click="activeTab = tab"
-                >{{ tab }}</button>
+                  :class="{ 'code-editor__tab--active': activeTabIndex === i }"
+                >{{ tab }}</span>
               </div>
             </div>
             <div class="code-editor__body">
               <div
-                v-for="(line, i) in currentCode"
+                v-for="(line, i) in displayedLines"
                 :key="i"
                 class="code-line"
-                :class="{ 'code-line--highlighted': line.highlight }"
               >
                 <span class="code-line__num">{{ i + 1 }}</span>
-                <span class="code-line__content" v-html="line.html" />
+                <span class="code-line__content" v-html="line ? applySyntax(line) : '&nbsp;'" />
+                <span
+                  v-if="i === displayedLines.length - 1"
+                  class="code-line__cursor"
+                />
               </div>
             </div>
           </div>
@@ -213,10 +215,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useData } from 'vitepress'
 
-const { isDark, lang } = useData()
+const { lang } = useData()
 
 const isEn = computed(() => lang.value === 'en-US')
 
@@ -233,53 +235,106 @@ const philosophyLink = computed(() =>
 )
 
 const editorTabs = ['route.tsx', 'store.ts', 'use-auth.ts']
-const activeTab = ref('route.tsx')
+const activeTabIndex = ref(0)
+const activeTab = computed(() => editorTabs[activeTabIndex.value])
 
-const codeSnippets: Record<string, { html: string; highlight?: boolean }[]> = {
+const codeSnippets: Record<string, string[]> = {
   'route.tsx': [
-    { html: `<span class="ct">import</span> <span class="cn">{ createFileRoute }</span> <span class="ct">from</span> <span class="cs">'@tanstack/react-router'</span>` },
-    { html: `<span class="ct">import</span> <span class="cn">{ useQuery }</span> <span class="ct">from</span> <span class="cs">'@tanstack/react-query'</span>` },
-    { html: `` },
-    { html: `<span class="ck">export const</span> <span class="cv">Route</span> <span class="co">=</span> <span class="cf">createFileRoute</span><span class="cp">(</span><span class="cs">'/dashboard'</span><span class="cp">)</span><span class="cp">({</span>` },
-    { html: `  <span class="ck">beforeLoad</span><span class="co">:</span> <span class="cp">()</span> <span class="co">=></span> <span class="cp">{</span>`, highlight: true },
-    { html: `    <span class="ck">const</span> <span class="cn">{ isAuthenticated }</span> <span class="co">=</span> <span class="cf">useAuthStore</span><span class="cp">.</span><span class="cf">getState</span><span class="cp">()</span>`, highlight: true },
-    { html: `    <span class="ck">if</span> <span class="cp">(!</span>isAuthenticated<span class="cp">)</span> <span class="ck">throw</span> <span class="cf">redirect</span><span class="cp">({</span> to<span class="co">:</span> <span class="cs">'/'</span> <span class="cp">})</span>`, highlight: true },
-    { html: `  <span class="cp">},</span>` },
-    { html: `  <span class="ck">component</span><span class="co">:</span> <span class="cn">DashboardPage</span><span class="co">,</span>` },
-    { html: `<span class="cp">})</span>` },
+    `import { createFileRoute } from '@tanstack/react-router'`,
+    `import { useAuthStore } from '@/shared/stores/auth.store'`,
+    ``,
+    `export const Route = createFileRoute('/dashboard')({`,
+    `  beforeLoad: () => {`,
+    `    const { isAuthenticated } = useAuthStore.getState()`,
+    `    if (!isAuthenticated) throw redirect({ to: '/' })`,
+    `  },`,
+    `  component: DashboardPage,`,
+    `})`,
   ],
   'store.ts': [
-    { html: `<span class="ct">import</span> <span class="cn">{ create }</span> <span class="ct">from</span> <span class="cs">'zustand'</span>` },
-    { html: `<span class="ct">import</span> <span class="cn">{ persist }</span> <span class="ct">from</span> <span class="cs">'zustand/middleware'</span>` },
-    { html: `` },
-    { html: `<span class="ck">export const</span> <span class="cv">useAuthStore</span> <span class="co">=</span> <span class="cf">create</span><span class="cp">&lt;</span><span class="cn">AuthState</span><span class="cp">&gt;()(</span>` },
-    { html: `  <span class="cf">persist</span><span class="cp">(</span>` },
-    { html: `    <span class="cp">(</span>set<span class="cp">)</span> <span class="co">=></span> <span class="cp">({</span>`, highlight: true },
-    { html: `      token<span class="co">:</span> <span class="ck">null</span><span class="co">,</span>`, highlight: true },
-    { html: `      isAuthenticated<span class="co">:</span> <span class="ck">false</span><span class="co">,</span>`, highlight: true },
-    { html: `      <span class="cf">setAuth</span><span class="co">:</span> <span class="cp">(</span>token<span class="co">,</span> user<span class="cp">)</span> <span class="co">=></span> <span class="cf">set</span><span class="cp">({</span> token<span class="co">,</span> user<span class="co">,</span> isAuthenticated<span class="co">:</span> <span class="ck">true</span> <span class="cp">}),</span>` },
-    { html: `    <span class="cp">}),</span>` },
-    { html: `    <span class="cp">{</span> name<span class="co">:</span> <span class="cs">'auth-storage'</span> <span class="cp">}</span>` },
-    { html: `  <span class="cp">)</span>` },
-    { html: `<span class="cp">)</span>` },
+    `import { create } from 'zustand'`,
+    `import { persist } from 'zustand/middleware'`,
+    ``,
+    `export const useAuthStore = create<AuthState>()(`,
+    `  persist(`,
+    `    (set) => ({`,
+    `      token: null,`,
+    `      isAuthenticated: false,`,
+    `      setAuth: (token, user) => set({ token, user, isAuthenticated: true }),`,
+    `    }),`,
+    `    { name: 'auth-storage' }`,
+    `  )`,
+    `)`,
   ],
   'use-auth.ts': [
-    { html: `<span class="ct">import</span> <span class="cn">{ useAuthStore }</span> <span class="ct">from</span> <span class="cs">'@/shared/stores/auth.store'</span>` },
-    { html: `` },
-    { html: `<span class="ck">export function</span> <span class="cf">useAuth</span><span class="cp">()</span> <span class="cp">{</span>` },
-    { html: `  <span class="ck">const</span> <span class="cn">{ user, token, isAuthenticated, clearAuth }</span>` },
-    { html: `    <span class="co">=</span> <span class="cf">useAuthStore</span><span class="cp">()</span>`, highlight: true },
-    { html: `` },
-    { html: `  <span class="ck">function</span> <span class="cf">logout</span><span class="cp">()</span> <span class="cp">{</span>`, highlight: true },
-    { html: `    <span class="cf">clearAuth</span><span class="cp">()</span>`, highlight: true },
-    { html: `  <span class="cp">}</span>` },
-    { html: `` },
-    { html: `  <span class="ck">return</span> <span class="cp">{</span> user<span class="co">,</span> token<span class="co">,</span> isAuthenticated<span class="co">,</span> logout <span class="cp">}</span>` },
-    { html: `<span class="cp">}</span>` },
+    `import { useAuthStore } from '@/shared/stores/auth.store'`,
+    ``,
+    `export function useAuth() {`,
+    `  const { user, token, isAuthenticated, clearAuth }`,
+    `    = useAuthStore()`,
+    ``,
+    `  function logout() {`,
+    `    clearAuth()`,
+    `  }`,
+    ``,
+    `  return { user, token, isAuthenticated, logout }`,
+    `}`,
   ],
 }
 
-const currentCode = computed(() => codeSnippets[activeTab.value] ?? [])
+const displayedLines = ref<string[]>([])
+const currentLineIndex = ref(0)
+const currentCharIndex = ref(0)
+
+function getTabLines() {
+  return codeSnippets[activeTab.value] ?? []
+}
+
+function applySyntax(line: string): string {
+  if (!line) return '&nbsp;'
+  return line
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/('.*?')/g, '<span class="cs">$1</span>')
+    .replace(/\b(import|export|from|const|function|if|return|throw)\b/g, '<span class="ck">$1</span>')
+    .replace(/\b(true|false|null)\b/g, '<span class="ck">$1</span>')
+    .replace(/(@[\w/]+)/g, '<span class="cs">$1</span>')
+}
+
+let typingTimer: ReturnType<typeof setTimeout> | null = null
+
+function typeNextChar() {
+  const lines = getTabLines()
+
+  if (currentLineIndex.value >= lines.length) {
+    typingTimer = setTimeout(() => {
+      activeTabIndex.value = (activeTabIndex.value + 1) % editorTabs.length
+      displayedLines.value = []
+      currentLineIndex.value = 0
+      currentCharIndex.value = 0
+      typingTimer = setTimeout(typeNextChar, 400)
+    }, 2000)
+    return
+  }
+
+  const currentLine = lines[currentLineIndex.value]
+
+  if (currentCharIndex.value <= currentLine.length) {
+    const partial = currentLine.slice(0, currentCharIndex.value)
+    if (displayedLines.value.length <= currentLineIndex.value) {
+      displayedLines.value.push(partial)
+    } else {
+      displayedLines.value[currentLineIndex.value] = partial
+    }
+    currentCharIndex.value++
+    typingTimer = setTimeout(typeNextChar, currentLine === '' ? 30 : 18)
+  } else {
+    currentLineIndex.value++
+    currentCharIndex.value = 0
+    typingTimer = setTimeout(typeNextChar, 60)
+  }
+}
 
 const translations = {
   'pt-BR': {
@@ -496,6 +551,8 @@ const stackRef = ref<HTMLElement>()
 const stackVisible = ref(false)
 
 onMounted(() => {
+  typingTimer = setTimeout(typeNextChar, 600)
+
   const observe = (el: HTMLElement | undefined, setter: (v: boolean) => void) => {
     if (!el) return
     const observer = new IntersectionObserver(
@@ -513,6 +570,10 @@ onMounted(() => {
   observe(featuresRef.value, (v) => (featuresVisible.value = v))
   observe(aiRef.value, (v) => (aiVisible.value = v))
   observe(stackRef.value, (v) => (stackVisible.value = v))
+})
+
+onUnmounted(() => {
+  if (typingTimer) clearTimeout(typingTimer)
 })
 </script>
 
@@ -537,7 +598,7 @@ onMounted(() => {
   overflow: hidden;
 }
 
-.home-page.is-dark {
+html.dark .home-page {
   --hp-bg: #0a0a0a;
   --hp-bg-secondary: #111111;
   --hp-text: #fafafa;
@@ -705,14 +766,7 @@ onMounted(() => {
   font-family: 'JetBrains Mono', monospace;
   color: var(--hp-text-muted);
   background: transparent;
-  border: none;
-  cursor: pointer;
   transition: all 0.15s ease;
-}
-
-.code-editor__tab:hover {
-  color: var(--hp-text);
-  background: var(--hp-border);
 }
 
 .code-editor__tab--active {
@@ -758,6 +812,21 @@ onMounted(() => {
   line-height: 1.6;
   white-space: pre;
   color: var(--hp-code-default);
+}
+
+.code-line__cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: var(--vp-c-brand-1);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: blink-cursor 0.8s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Syntax token colors */

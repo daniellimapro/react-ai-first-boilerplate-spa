@@ -8,6 +8,9 @@
   --hp-editor-bg: #f6f8fa;
   --hp-editor-header: #f0f2f5;
   --hp-code-default: #24292f;
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-soft: #f8f8f8;
+  --vp-sidebar-bg-color: #ffffff;
   scroll-behavior: smooth;
 }
 
@@ -19,6 +22,14 @@
   --hp-editor-bg: #161b22;
   --hp-editor-header: #0d1117;
   --hp-code-default: #abb2bf;
+  --vp-c-bg: #0d0d0f;
+  --vp-c-bg-soft: #111114;
+  --vp-c-bg-muted: #111114;
+  --vp-c-bg-elv: #111114;
+  --vp-sidebar-bg-color: #0d0d0f;
+  --vp-nav-bg-color: transparent;
+  --vp-c-divider: rgba(255, 255, 255, 0.08);
+  --vp-c-gutter: #0d0d0f;
 }
 
 * {
@@ -30,17 +41,27 @@ html {
 }
 
 .VPNav {
-  border-bottom: 1px solid var(--vp-c-divider) !important;
-  backdrop-filter: blur(12px) !important;
-  background: rgba(var(--vp-c-bg-rgb, 255, 255, 255), 0.85) !important;
-}
-
-.dark .VPNav {
-  background: rgba(10, 10, 10, 0.85) !important;
+  background: transparent !important;
 }
 
 .VPNavBar {
-  border-bottom: none !important;
+  background: rgba(10, 10, 10, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+html:not(.dark) .VPNavBar {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.VPNavBarTitle .title {
+  display: none !important;
+}
+
+.VPNavBarTitle .logo {
+  display: none !important;
 }
 
 .VPHome {
@@ -193,6 +214,25 @@ html {
   border-radius: 4px;
   font-size: 11px;
   font-weight: 600;
+}
+
+.dark .VPSidebar {
+  background: var(--vp-c-bg) !important;
+  border-right: 1px solid var(--vp-c-divider) !important;
+}
+
+.dark .VPContent {
+  background: var(--vp-c-bg) !important;
+}
+
+.dark .vp-code-group,
+.dark div[class*="language-"] {
+  background: #0a0a0c !important;
+}
+
+.dark div[class*="language-"] {
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
