@@ -69,6 +69,15 @@
             <span class="terminal__dot terminal__dot--yellow" />
             <span class="terminal__dot terminal__dot--green" />
             <span class="terminal__title">bash</span>
+            <button class="terminal__copy" :class="{ 'terminal__copy--copied': copied }" @click="copyInstall" :aria-label="copied ? 'Copied' : 'Copy'">
+              <svg v-if="!copied" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
           </div>
           <div class="terminal__body">
             <p class="terminal__line">
@@ -545,6 +554,16 @@ const stackItems = [
   { name: 'GitHub Actions', desc: 'CI/CD' },
 ]
 
+const copied = ref(false)
+let copyTimer: ReturnType<typeof setTimeout> | null = null
+
+function copyInstall() {
+  navigator.clipboard.writeText('pnpm dlx degit daniellimapro/react-ai-first-boilerplate-spa my-app')
+  copied.value = true
+  if (copyTimer) clearTimeout(copyTimer)
+  copyTimer = setTimeout(() => { copied.value = false }, 2000)
+}
+
 const featuresRef = ref<HTMLElement>()
 const featuresVisible = ref(false)
 const aiRef = ref<HTMLElement>()
@@ -576,6 +595,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (typingTimer) clearTimeout(typingTimer)
+  if (copyTimer) clearTimeout(copyTimer)
 })
 </script>
 
@@ -737,7 +757,6 @@ html.dark .home-page {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 32px 64px rgba(0,0,0,0.4);
-  contain: layout size;
 }
 
 .code-editor__header {
@@ -961,6 +980,31 @@ html.dark .home-page {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.4);
   font-family: var(--vp-font-family-mono);
+}
+
+.terminal__copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0;
+  transition: color 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.terminal__copy:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.terminal__copy--copied {
+  color: #28c840;
 }
 
 .terminal__body {
