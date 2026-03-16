@@ -282,7 +282,13 @@ const codeSnippets: Record<string, string[]> = {
   ],
 }
 
-const displayedLines = ref<string[]>([])
+const MAX_LINES = Math.max(...Object.values(codeSnippets).map((s) => s.length))
+
+function emptyLines(): string[] {
+  return Array(MAX_LINES).fill('')
+}
+
+const displayedLines = ref<string[]>(emptyLines())
 const currentLineIndex = ref(0)
 const currentCharIndex = ref(0)
 
@@ -296,10 +302,10 @@ function applySyntax(line: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/('.*?')/g, '<span class="cs">$1</span>')
-    .replace(/\b(import|export|from|const|function|if|return|throw)\b/g, '<span class="ck">$1</span>')
-    .replace(/\b(true|false|null)\b/g, '<span class="ck">$1</span>')
-    .replace(/(@[\w/]+)/g, '<span class="cs">$1</span>')
+    .replace(/('(?:[^'\\]|\\.)*')/g, '<span class="cs">$1</span>')
+    .replace(/\b(import|export|from|const|function|if|return|throw|async|await)\b/g, '<span class="ck">$1</span>')
+    .replace(/\b(true|false|null|undefined)\b/g, '<span class="cn">$1</span>')
+    .replace(/(@[\w/.-]+)/g, '<span class="cp">$1</span>')
 }
 
 let typingTimer: ReturnType<typeof setTimeout> | null = null
@@ -310,7 +316,7 @@ function typeNextChar() {
   if (currentLineIndex.value >= lines.length) {
     typingTimer = setTimeout(() => {
       activeTabIndex.value = (activeTabIndex.value + 1) % editorTabs.length
-      displayedLines.value = []
+      displayedLines.value = emptyLines()
       currentLineIndex.value = 0
       currentCharIndex.value = 0
       typingTimer = setTimeout(typeNextChar, 400)
@@ -322,11 +328,7 @@ function typeNextChar() {
 
   if (currentCharIndex.value <= currentLine.length) {
     const partial = currentLine.slice(0, currentCharIndex.value)
-    if (displayedLines.value.length <= currentLineIndex.value) {
-      displayedLines.value.push(partial)
-    } else {
-      displayedLines.value[currentLineIndex.value] = partial
-    }
+    displayedLines.value[currentLineIndex.value] = partial
     currentCharIndex.value++
     typingTimer = setTimeout(typeNextChar, currentLine === '' ? 30 : 18)
   } else {
@@ -594,6 +596,10 @@ onUnmounted(() => {
   --hp-terminal-bg: #1a1a2e;
   --hp-terminal-text: #e2e8f0;
   --hp-radius: 12px;
+  /* code editor */
+  --hp-editor-bg: #101010;
+  --hp-editor-header: rgba(255, 255, 255, 0.03);
+  --hp-code-default: #cccccc;
   font-family: var(--vp-font-family-base);
   overflow: hidden;
 }
@@ -722,6 +728,7 @@ html.dark .home-page {
 .hero__right {
   position: relative;
   align-self: start;
+  flex-shrink: 0;
 }
 
 .code-editor {
@@ -730,6 +737,7 @@ html.dark .home-page {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 32px 64px rgba(0,0,0,0.4);
+  contain: layout size;
 }
 
 .code-editor__header {
@@ -777,11 +785,10 @@ html.dark .home-page {
 }
 
 .code-editor__body {
-  padding: 16px 0;
+  padding: 12px 0;
   overflow: hidden;
-  height: 280px;
-  min-height: 280px;
-  max-height: 280px;
+  height: 312px;
+  flex-shrink: 0;
 }
 
 .code-line {
@@ -832,15 +839,15 @@ html.dark .home-page {
   50% { opacity: 0; }
 }
 
-/* Syntax token colors — :deep() required because content is injected via v-html */
-.code-line__content :deep(.ct) { color: #c678dd; }
-.code-line__content :deep(.cn) { color: #e5c07b; }
-.code-line__content :deep(.cs) { color: #98c379; }
-.code-line__content :deep(.ck) { color: #c678dd; }
-.code-line__content :deep(.cv) { color: #61afef; }
-.code-line__content :deep(.cf) { color: #61afef; }
-.code-line__content :deep(.co) { color: #56b6c2; }
-.code-line__content :deep(.cp) { color: #abb2bf; }
+/* Syntax token colors — Zed Vesper theme — :deep() required for v-html content */
+.code-line__content :deep(.ck) { color: #ffc799; } /* keywords */
+.code-line__content :deep(.cs) { color: #80ffea; } /* strings */
+.code-line__content :deep(.cn) { color: #d4a574; } /* booleans/null */
+.code-line__content :deep(.cp) { color: #888888; } /* paths/@/ */
+.code-line__content :deep(.ct) { color: #b5b5ff; } /* types */
+.code-line__content :deep(.cf) { color: #ffc799; } /* functions */
+.code-line__content :deep(.co) { color: #666666; } /* operators */
+.code-line__content :deep(.cv) { color: #cccccc; } /* variables */
 
 /* ===== BUTTONS ===== */
 .btn {
