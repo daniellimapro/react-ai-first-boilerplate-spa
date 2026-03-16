@@ -29,7 +29,8 @@
   text-decoration: none;
   transition: all 0.2s ease;
   white-space: nowrap;
-  margin-right: 8px;
+  margin-left: 20px;
+  margin-right: 4px;
 }
 
 .github-badge:hover {

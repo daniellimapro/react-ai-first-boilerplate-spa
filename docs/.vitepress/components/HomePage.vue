@@ -721,6 +721,7 @@ html.dark .home-page {
 /* ===== CODE EDITOR ===== */
 .hero__right {
   position: relative;
+  align-self: start;
 }
 
 .code-editor {
@@ -831,15 +832,15 @@ html.dark .home-page {
   50% { opacity: 0; }
 }
 
-/* Syntax token colors */
-.ct { color: #c678dd; }
-.cn { color: #e5c07b; }
-.cs { color: #98c379; }
-.ck { color: #c678dd; }
-.cv { color: #61afef; }
-.cf { color: #61afef; }
-.co { color: #56b6c2; }
-.cp { color: #abb2bf; }
+/* Syntax token colors — :deep() required because content is injected via v-html */
+.code-line__content :deep(.ct) { color: #c678dd; }
+.code-line__content :deep(.cn) { color: #e5c07b; }
+.code-line__content :deep(.cs) { color: #98c379; }
+.code-line__content :deep(.ck) { color: #c678dd; }
+.code-line__content :deep(.cv) { color: #61afef; }
+.code-line__content :deep(.cf) { color: #61afef; }
+.code-line__content :deep(.co) { color: #56b6c2; }
+.code-line__content :deep(.cp) { color: #abb2bf; }
 
 /* ===== BUTTONS ===== */
 .btn {
