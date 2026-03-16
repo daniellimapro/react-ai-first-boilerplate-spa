@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard"
+  },
+  "theme": {
+    "toggle": "Toggle theme"
+  },
+  "language": {
+    "select": "Language"
+  },
+  "form": {
+    "name": "Name",
+    "namePlaceholder": "Your full name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "submit": "Submit",
+    "success": "Form submitted successfully!",
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Invalid email"
+    }
+  },
+  "home": {
+    "title": "React AI First Boilerplate",
+    "description": "A modern foundation for building SPAs with AI. Clone, open in Claude and start building."
+  },
+  "about": {
+    "title": "About the project",
+    "description": "This boilerplate was created to be the perfect foundation for modern React projects built with AI."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Protected area. Add your authentication logic in the auth slot."
+  },
+  "auth": {
+    "notAuthenticated": "You are not authenticated.",
+    "login": "Sign in"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist.",
+    "back": "Back to home"
+  }
+}
