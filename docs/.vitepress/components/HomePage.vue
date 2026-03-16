@@ -607,19 +607,19 @@ onUnmounted(() => {
   --hp-text-muted: #6b7280;
   --hp-border: rgba(0, 0, 0, 0.08);
   --hp-card-bg: rgba(0, 0, 0, 0.02);
-  --hp-brand: #7c3aed;
-  --hp-brand-2: #3b82f6;
-  --hp-brand-3: #06b6d4;
-  --hp-brand-soft: rgba(124, 58, 237, 0.08);
+  --hp-brand: #1a1a1a;
+  --hp-brand-2: #555555;
+  --hp-brand-3: #888888;
+  --hp-brand-soft: rgba(0, 0, 0, 0.05);
   --hp-grid-line: rgba(0, 0, 0, 0.06);
-  --hp-glow: rgba(124, 58, 237, 0.15);
-  --hp-terminal-bg: #1a1a2e;
+  --hp-glow: rgba(0, 0, 0, 0.06);
+  --hp-terminal-bg: #111111;
   --hp-terminal-text: #e2e8f0;
   --hp-radius: 12px;
   /* code editor */
-  --hp-editor-bg: #101010;
-  --hp-editor-header: rgba(255, 255, 255, 0.03);
-  --hp-code-default: #cccccc;
+  --hp-editor-bg: #f6f8fa;
+  --hp-editor-header: #f0f2f5;
+  --hp-code-default: #24292f;
   font-family: var(--vp-font-family-base);
   overflow: hidden;
 }
@@ -631,10 +631,17 @@ html.dark .home-page {
   --hp-text-muted: #9ca3af;
   --hp-border: rgba(255, 255, 255, 0.08);
   --hp-card-bg: rgba(255, 255, 255, 0.03);
-  --hp-brand-soft: rgba(124, 58, 237, 0.12);
+  --hp-brand: #e8e8e8;
+  --hp-brand-2: #aaaaaa;
+  --hp-brand-3: #666666;
+  --hp-brand-soft: rgba(255, 255, 255, 0.06);
   --hp-grid-line: rgba(255, 255, 255, 0.04);
-  --hp-glow: rgba(124, 58, 237, 0.25);
-  --hp-terminal-bg: #0d0d1a;
+  --hp-glow: rgba(255, 255, 255, 0.04);
+  --hp-terminal-bg: #0d0d0d;
+  /* code editor */
+  --hp-editor-bg: #101010;
+  --hp-editor-header: rgba(255, 255, 255, 0.03);
+  --hp-code-default: #cccccc;
 }
 
 .container {
@@ -716,18 +723,7 @@ html.dark .home-page {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--hp-brand) 0%, var(--hp-brand-2) 50%, var(--hp-brand-3) 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 4s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  color: var(--hp-text-muted);
 }
 
 .hero__description {
@@ -884,15 +880,16 @@ html.dark .home-page {
 }
 
 .btn--primary {
-  background: var(--hp-brand);
-  color: #ffffff;
-  box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+  background: var(--hp-text);
+  color: var(--hp-bg);
+  box-shadow: none;
 }
 
 .btn--primary:hover {
-  background: #6d28d9;
+  background: var(--hp-brand-2);
+  color: var(--hp-bg);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .btn--secondary {

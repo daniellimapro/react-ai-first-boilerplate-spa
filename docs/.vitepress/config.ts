@@ -10,7 +10,8 @@ export default defineConfig({
       label: 'Português',
       lang: 'pt-BR',
       title: 'React AI First',
-      description: 'A base React moderna construída para desenvolvimento com IA',
+      description:
+        'A base React moderna construída para desenvolvimento com IA',
       themeConfig: {
         nav: [
           { text: 'Guia', link: '/guide/getting-started' },
@@ -106,6 +107,11 @@ export default defineConfig({
   },
 
   themeConfig: {
+    logo: {
+      light: '/logo-light.svg',
+      dark: '/logo-dark.svg',
+      alt: 'React AI First',
+    },
     socialLinks: [
       {
         icon: 'github',
@@ -120,7 +126,10 @@ export default defineConfig({
 
   head: [
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'React AI First Boilerplate SPA' }],
+    [
+      'meta',
+      { property: 'og:title', content: 'React AI First Boilerplate SPA' },
+    ],
     [
       'meta',
       {
@@ -128,8 +137,25 @@ export default defineConfig({
         content: 'A modern React foundation built for AI-driven development',
       },
     ],
+    [
+      'link',
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/react-ai-first-boilerplate-spa/favicon.svg',
+      },
+    ],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap' }],
+    [
+      'link',
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+    ],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap',
+      },
+    ],
   ],
 })

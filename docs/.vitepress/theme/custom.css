@@ -1,8 +1,8 @@
 :root {
-  --vp-c-brand-1: #7c3aed;
-  --vp-c-brand-2: #6d28d9;
-  --vp-c-brand-3: #5b21b6;
-  --vp-c-brand-soft: rgba(124, 58, 237, 0.1);
+  --vp-c-brand-1: #1a1a1a;
+  --vp-c-brand-2: #444444;
+  --vp-c-brand-3: #777777;
+  --vp-c-brand-soft: rgba(0, 0, 0, 0.06);
   --vp-font-family-base: 'JetBrains Mono', monospace;
   --vp-font-family-mono: 'JetBrains Mono', monospace;
   --hp-editor-bg: #f6f8fa;
@@ -15,13 +15,13 @@
 }
 
 .dark {
-  --vp-c-brand-1: #a78bfa;
-  --vp-c-brand-2: #7c3aed;
-  --vp-c-brand-3: #6d28d9;
-  --vp-c-brand-soft: rgba(167, 139, 250, 0.1);
-  --hp-editor-bg: #161b22;
-  --hp-editor-header: #0d1117;
-  --hp-code-default: #abb2bf;
+  --vp-c-brand-1: #e0e0e0;
+  --vp-c-brand-2: #aaaaaa;
+  --vp-c-brand-3: #777777;
+  --vp-c-brand-soft: rgba(255, 255, 255, 0.08);
+  --hp-editor-bg: #101010;
+  --hp-editor-header: rgba(255, 255, 255, 0.03);
+  --hp-code-default: #cccccc;
   --vp-c-bg: #0d0d0f;
   --vp-c-bg-soft: #111114;
   --vp-c-bg-muted: #111114;
@@ -33,7 +33,9 @@
 }
 
 * {
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 html {
@@ -59,13 +61,25 @@ html:not(.dark) .VPNavBar {
 .VPNavBarTitle .title::after {
   content: '_';
   animation: nav-cursor-blink 1s step-end infinite;
-  color: var(--vp-c-brand-1);
+  color: var(--vp-c-text-2);
   margin-left: 1px;
+  opacity: 0.6;
 }
 
 @keyframes nav-cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.VPNavBarTitle .logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
 }
 
 .VPHome {
@@ -127,7 +141,7 @@ html:not(.dark) .VPNavBar {
   padding: 2px 6px;
   border-radius: 4px;
   border: 1px solid var(--vp-c-divider);
-  color: var(--vp-c-brand-1);
+  color: var(--vp-c-text-1);
 }
 
 .vp-doc div[class*='language-'] {
@@ -230,12 +244,12 @@ html:not(.dark) .VPNavBar {
 }
 
 .dark .vp-code-group,
-.dark div[class*="language-"] {
+.dark div[class*='language-'] {
   background: #0a0a0c !important;
 }
 
-.dark div[class*="language-"] {
-  border: 1px solid rgba(255,255,255,0.06);
+.dark div[class*='language-'] {
+  border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: none;
 }
 
