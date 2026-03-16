@@ -1,12 +1,12 @@
 # Auth Slot
 
-Authentication is a project-specific decision. This boilerplate provides the structure without coupling you to any provider.
+Autenticação é uma decisão específica de cada projeto. Este boilerplate fornece a estrutura sem te acoplar a nenhum provedor.
 
-## What's included
+## O que está incluído
 
 ### Auth Store (`shared/stores/auth.store.ts`)
 
-Holds the authentication state globally:
+Mantém o estado de autenticação de forma global:
 
 ```ts
 interface AuthState {
@@ -18,27 +18,27 @@ interface AuthState {
 }
 ```
 
-### useAuth Hook (`shared/hooks/use-auth.ts`)
+### Hook useAuth (`shared/hooks/use-auth.ts`)
 
-Exposes auth state and actions to components:
+Expõe o estado e as ações de autenticação para os componentes:
 
 ```ts
 const { user, token, isAuthenticated, login, logout } = useAuth()
 ```
 
-`login()` and `logout()` are stubs. Implement them with your provider.
+`login()` e `logout()` são stubs. Implemente-os com seu provedor.
 
-### API Wrapper (`shared/lib/api.ts`)
+### Wrapper de API (`shared/lib/api.ts`)
 
-Automatically injects `Authorization: Bearer {token}` from the store:
+Injeta automaticamente `Authorization: Bearer {token}` a partir da store:
 
 ```ts
 const data = await api<User[]>('/users')
 ```
 
-### Protected Routes
+### Rotas Protegidas
 
-Routes use `beforeLoad` to check `isAuthenticated`:
+As rotas usam `beforeLoad` para verificar `isAuthenticated`:
 
 ```ts
 export const Route = createFileRoute('/dashboard')({
@@ -49,7 +49,7 @@ export const Route = createFileRoute('/dashboard')({
 })
 ```
 
-## Integrating a Provider
+## Integrando um Provedor
 
 ### Keycloak
 
@@ -65,7 +65,7 @@ export const keycloak = new Keycloak({
 ```
 
 ```ts
-// In use-auth.ts login():
+// No login() do use-auth.ts:
 function login() {
   keycloak.login()
 }
@@ -74,7 +74,7 @@ function login() {
 ### Auth0
 
 ```ts
-// In use-auth.ts login():
+// No login() do use-auth.ts:
 function login() {
   auth0.loginWithRedirect()
 }
@@ -83,8 +83,8 @@ function login() {
 ### Clerk
 
 ```ts
-// Replace useAuth with Clerk's useUser and useAuth hooks
-// Update auth.store with Clerk session data
+// Substitua useAuth pelos hooks useUser e useAuth do Clerk
+// Atualize auth.store com os dados da sessão do Clerk
 ```
 
-The pattern is always the same: populate `auth.store` with `setAuth()`, clear it with `clearAuth()`.
+O padrão é sempre o mesmo: popule `auth.store` com `setAuth()` e limpe com `clearAuth()`.

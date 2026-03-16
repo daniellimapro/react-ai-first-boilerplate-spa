@@ -1,21 +1,21 @@
-# Testing
+# Testes
 
 ## Stack
 
-- **Vitest** — test runner, native to Vite, Jest-compatible API
-- **Testing Library** — behavior-driven tests
-- **MSW** — API mocking at the network layer
+- **Vitest** — test runner nativo do Vite, API compatível com Jest
+- **Testing Library** — testes orientados a comportamento
+- **MSW** — mock de API na camada de rede
 
-## Running Tests
+## Executando os Testes
 
 ```bash
-npm run test           # watch mode
-npm run test:coverage  # coverage report
+npm run test           # modo watch
+npm run test:coverage  # relatório de cobertura
 ```
 
-## Test Location
+## Localização dos Testes
 
-Tests live in `src/test/` for shared tests, or colocated with features:
+Os testes ficam em `src/test/` para testes compartilhados, ou colocados junto às features:
 
 ```
 src/
@@ -27,15 +27,15 @@ src/
         └── checkout-form.test.tsx
 ```
 
-## Writing Tests
+## Escrevendo Testes
 
-Test behavior, not implementation:
+Teste comportamento, não implementação:
 
 ```tsx
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-it('shows error when name is too short', async () => {
+it('exibe erro quando o nome é muito curto', async () => {
   render(<ExampleForm />)
 
   await userEvent.type(screen.getByLabelText(/name/i), 'a')
@@ -45,9 +45,9 @@ it('shows error when name is too short', async () => {
 })
 ```
 
-## MSW Handlers
+## Handlers do MSW
 
-Add request handlers in `src/shared/mocks/handlers.ts`:
+Adicione handlers de requisição em `src/shared/mocks/handlers.ts`:
 
 ```ts
 import { http, HttpResponse } from 'msw'
@@ -59,4 +59,4 @@ export const handlers = [
 ]
 ```
 
-MSW intercepts real fetch calls — no need to mock `fetch` or `axios`. Your production code runs unchanged in tests.
+O MSW intercepta chamadas reais de fetch — sem necessidade de mockar `fetch` ou `axios`. Seu código de produção roda sem alterações nos testes.

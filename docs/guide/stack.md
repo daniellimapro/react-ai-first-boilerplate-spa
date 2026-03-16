@@ -1,73 +1,73 @@
 # Stack
 
-Every tool in this stack was chosen deliberately. Here's what's included and why.
+Cada ferramenta neste stack foi escolhida deliberadamente. Veja o que está incluído e por quê.
 
 ## Core
 
-| Tool | Version | Purpose |
+| Ferramenta | Versão | Propósito |
 |---|---|---|
-| Vite | 6.x | Build tool — fastest dev experience, native ESM |
-| React | 19 | UI library — latest stable with concurrent features |
-| TypeScript | 5.x | Language — strict mode, no `any` |
+| Vite | 6.x | Build tool — experiência de desenvolvimento mais rápida, ESM nativo |
+| React | 19 | Biblioteca de UI — versão estável mais recente com recursos concorrentes |
+| TypeScript | 5.x | Linguagem — modo strict, sem `any` |
 
-## Routing
+## Roteamento
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| TanStack Router | File-based routing with full TypeScript end-to-end. Every route, param, and search query is typed. |
+| TanStack Router | Roteamento baseado em arquivo com TypeScript ponta a ponta. Toda rota, parâmetro e query string é tipado. |
 
-## State Management
+## Gerenciamento de Estado
 
-| Tool | When to use |
+| Ferramenta | Quando usar |
 |---|---|
-| TanStack Query | Server state — fetching, caching, revalidating, syncing |
-| Zustand | Client state — UI state, auth, forms that span multiple components |
-| useState | Local state — component-specific, doesn't need to be shared |
+| TanStack Query | Estado do servidor — busca, cache, revalidação e sincronização |
+| Zustand | Estado do cliente — estado de UI, auth, formulários que atravessam múltiplos componentes |
+| useState | Estado local — específico do componente, não precisa ser compartilhado |
 
-## Forms & Validation
+## Formulários e Validação
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| React Hook Form | Performant forms with minimal re-renders |
-| Zod | Schema validation for forms and runtime data |
-| @hookform/resolvers | Connects Zod schemas to React Hook Form |
+| React Hook Form | Formulários performáticos com mínimo de re-renders |
+| Zod | Validação de esquemas para formulários e dados em runtime |
+| @hookform/resolvers | Conecta esquemas Zod ao React Hook Form |
 
-## Styling
+## Estilização
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| Tailwind CSS 4 | Utility-first CSS — no runtime, full tree-shaking |
-| Shadcn/UI | Component library you own — no package dependency |
+| Tailwind CSS 4 | CSS utilitário — sem runtime, tree-shaking completo |
+| Shadcn/UI | Biblioteca de componentes que você possui — sem dependência de pacote |
 
-## Internationalization
+## Internacionalização
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| i18next | Core i18n framework |
-| react-i18next | React integration |
-| i18next-browser-languagedetector | Auto-detects browser language |
+| i18next | Framework de i18n principal |
+| react-i18next | Integração com React |
+| i18next-browser-languagedetector | Detecta automaticamente o idioma do navegador |
 
-## Testing
+## Testes
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| Vitest | Test runner — native Vite integration, Jest-compatible API |
-| Testing Library | Behavior-driven tests — tests what users see, not internals |
-| MSW | API mocking — intercepts real network requests in tests and dev |
+| Vitest | Test runner — integração nativa com Vite, API compatível com Jest |
+| Testing Library | Testes orientados a comportamento — testa o que o usuário vê, não internos |
+| MSW | Mock de API — intercepta requisições de rede reais em testes e no desenvolvimento |
 
-## Quality
+## Qualidade
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| ESLint | Static analysis — catches bugs before runtime |
-| Prettier | Code formatting — consistent style, no debates |
-| Husky | Git hooks — runs lint/tests before commits |
-| lint-staged | Runs tools only on staged files — fast pre-commit |
-| Commitlint | Validates commit message format (Conventional Commits) |
+| ESLint | Análise estática — detecta bugs antes do runtime |
+| Prettier | Formatação de código — estilo consistente, sem debates |
+| Husky | Git hooks — executa lint/testes antes dos commits |
+| lint-staged | Executa ferramentas apenas nos arquivos staged — pre-commit rápido |
+| Commitlint | Valida o formato da mensagem de commit (Conventional Commits) |
 
 ## CI/CD
 
-| Tool | Purpose |
+| Ferramenta | Propósito |
 |---|---|
-| GitHub Actions | CI pipeline — lint + test on every PR |
-| VitePress + GitHub Pages | Documentation site |
+| GitHub Actions | Pipeline de CI — lint + testes em cada PR |
+| VitePress + GitHub Pages | Site de documentação |

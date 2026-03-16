@@ -56,12 +56,16 @@ html:not(.dark) .VPNavBar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
 }
 
-.VPNavBarTitle .title {
-  display: none !important;
+.VPNavBarTitle .title::after {
+  content: '_';
+  animation: nav-cursor-blink 1s step-end infinite;
+  color: var(--vp-c-brand-1);
+  margin-left: 1px;
 }
 
-.VPNavBarTitle .logo {
-  display: none !important;
+@keyframes nav-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .VPHome {

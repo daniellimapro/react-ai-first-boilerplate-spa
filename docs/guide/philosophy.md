@@ -1,46 +1,46 @@
-# AI-First Philosophy
+# Filosofia AI-First
 
-## The problem with traditional boilerplates
+## O problema dos boilerplates tradicionais
 
-Traditional boilerplates solve the wrong problem. They save you 2 hours of setup. That's it.
+Boilerplates tradicionais resolvem o problema errado. Eles economizam 2 horas de configuração. Só isso.
 
-When you clone a boilerplate, you still have to:
-- Decide where each file goes
-- Choose naming conventions
-- Figure out how components should be structured
-- Repeat your architecture decisions to every AI session
+Quando você clona um boilerplate, ainda precisa:
+- Decidir onde cada arquivo vai
+- Escolher convenções de nomenclatura
+- Descobrir como os componentes devem ser estruturados
+- Repetir suas decisões de arquitetura em cada sessão com a IA
 
-The real cost isn't setup. It's **context**.
+O custo real não é a configuração. É o **contexto**.
 
-## What AI-First means
+## O que AI-First significa
 
-An AI-First boilerplate treats the development context as a first-class artifact.
+Um boilerplate AI-First trata o contexto de desenvolvimento como um artefato de primeira classe.
 
-The `CLAUDE.md` file in this project is not documentation for humans. It's a structured brief for the AI. When you open this project in your AI assistant, it knows:
+O arquivo `CLAUDE.md` neste projeto não é documentação para humanos. É um briefing estruturado para a IA. Quando você abre este projeto no seu assistente de IA, ela sabe:
 
-- Your complete stack and why each tool was chosen
-- Where features, components, hooks, stores, and services live
-- How to structure a component, a hook, a Zustand store, an API call
-- How to add a new route
-- How to handle API errors (and when to ask you about it)
-- Which patterns to follow, which to avoid
+- Seu stack completo e por que cada ferramenta foi escolhida
+- Onde features, componentes, hooks, stores e serviços ficam
+- Como estruturar um componente, um hook, uma store Zustand, uma chamada de API
+- Como adicionar uma nova rota
+- Como tratar erros de API (e quando perguntar a você)
+- Quais padrões seguir, quais evitar
 
-The AI becomes a consistent collaborator, not a random code generator.
+A IA se torna uma colaboradora consistente, não uma geradora aleatória de código.
 
-## The CLAUDE.md as a contract
+## O CLAUDE.md como um contrato
 
-Think of `CLAUDE.md` as a contract between you and the AI. You define the rules once. The AI follows them consistently across every session, every feature, every PR.
+Pense no `CLAUDE.md` como um contrato entre você e a IA. Você define as regras uma vez. A IA as segue consistentemente em cada sessão, cada feature, cada PR.
 
-This means:
-- No more "the AI used Context API here but Zustand everywhere else"
-- No more "why is this component 300 lines when everything else is 50?"
-- No more repeating your conventions in every chat
+Isso significa:
+- Sem mais "a IA usou Context API aqui, mas Zustand em todo o resto"
+- Sem mais "por que esse componente tem 300 linhas quando todo o resto tem 50?"
+- Sem mais repetir suas convenções em cada conversa
 
-## Built-in AI Commands
+## Comandos de IA Integrados
 
-Two commands come pre-configured in this boilerplate:
+Dois comandos vêm pré-configurados neste boilerplate:
 
-- **`/figma`** — reads a Figma design and implements it pixel-perfect using your project's components and conventions
-- **`/commit`** — generates a conventional commit message based on your changes and creates the commit
+- **`/figma`** — lê um design do Figma e o implementa pixel-perfect usando os componentes e convenções do seu projeto
+- **`/commit`** — gera uma mensagem de commit convencional baseada nas suas alterações e cria o commit
 
-These aren't scripts. They're AI instructions that live in the `CLAUDE.md` and work with any AI assistant that supports project context files.
+Não são scripts. São instruções para a IA que vivem no `CLAUDE.md` e funcionam com qualquer assistente que suporte arquivos de contexto de projeto.

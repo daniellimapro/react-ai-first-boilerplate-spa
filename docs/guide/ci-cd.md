@@ -1,44 +1,44 @@
 # CI/CD
 
-## CI Pipeline (GitHub Actions)
+## Pipeline de CI (GitHub Actions)
 
-Runs on every push and pull request to `main` and `develop`.
+Executado em todo push e pull request para `main` e `develop`.
 
-**File:** `.github/workflows/ci.yml`
+**Arquivo:** `.github/workflows/ci.yml`
 
-**Steps:**
-1. Checkout code
-2. Setup Node.js 20
-3. Install dependencies (`npm ci`)
-4. Run ESLint (`npm run lint`)
-5. Run Vitest (`npm run test`)
+**Etapas:**
+1. Checkout do código
+2. Configurar Node.js 20
+3. Instalar dependências (`npm ci`)
+4. Executar ESLint (`npm run lint`)
+5. Executar Vitest (`npm run test`)
 
-A PR cannot be merged if lint or tests fail.
+Um PR não pode ser mergeado se o lint ou os testes falharem.
 
-## Docs Pipeline (GitHub Actions)
+## Pipeline de Docs (GitHub Actions)
 
-Builds and deploys VitePress docs to GitHub Pages on every push to `main`.
+Gera e publica a documentação VitePress no GitHub Pages a cada push para `main`.
 
-**File:** `.github/workflows/docs.yml`
+**Arquivo:** `.github/workflows/docs.yml`
 
-**Steps:**
-1. Build VitePress (`npm run docs:build`)
-2. Upload artifact
-3. Deploy to GitHub Pages
+**Etapas:**
+1. Build do VitePress (`npm run docs:build`)
+2. Upload do artefato
+3. Deploy no GitHub Pages
 
-The docs site is available at:
+O site de documentação está disponível em:
 ```
 https://daniellimapro.github.io/react-ai-first-boilerplate-spa/
 ```
 
-## Pre-commit Hooks (Husky)
+## Hooks de Pre-commit (Husky)
 
-Runs locally before every commit:
+Executados localmente antes de cada commit:
 
-- **pre-commit**: ESLint + Prettier on staged files (via lint-staged)
-- **commit-msg**: Validates conventional commit format (via commitlint)
+- **pre-commit**: ESLint + Prettier nos arquivos staged (via lint-staged)
+- **commit-msg**: Valida o formato do commit convencional (via commitlint)
 
-Valid commit types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`, `ci`
+Tipos de commit válidos: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`, `ci`
 
 ## Conventional Commits
 

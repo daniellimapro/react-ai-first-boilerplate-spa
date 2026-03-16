@@ -1,33 +1,33 @@
-# What is React AI First Boilerplate SPA?
+# O que é o React AI First Boilerplate SPA?
 
-This is not a traditional boilerplate.
+Este não é um boilerplate tradicional.
 
-Traditional boilerplates give you code to copy. You clone it, delete what you don't need, and adapt the rest. A week later, your project looks nothing like the original.
+Boilerplates tradicionais te dão código para copiar. Você clona, apaga o que não precisa e adapta o resto. Uma semana depois, seu projeto não tem mais nada a ver com o original.
 
-**This boilerplate is different.** It's a foundation built for AI-driven development.
+**Este boilerplate é diferente.** É uma fundação construída para desenvolvimento guiado por IA.
 
-## The core idea
+## A ideia central
 
-When you open this project in any AI assistant, the `CLAUDE.md` file gives it everything it needs to understand your project:
+Quando você abre este projeto em qualquer assistente de IA, o arquivo `CLAUDE.md` fornece tudo o que ela precisa para entender seu projeto:
 
-- Which libraries you use and why
-- Where each type of file belongs
-- How components, hooks, stores, and services are structured
-- Which patterns to follow and which to avoid
-- How to add a new feature, route, or API integration
+- Quais bibliotecas você usa e por quê
+- Onde cada tipo de arquivo deve ficar
+- Como componentes, hooks, stores e serviços são estruturados
+- Quais padrões seguir e quais evitar
+- Como adicionar uma nova feature, rota ou integração com API
 
-The AI doesn't guess. It reads your conventions and builds accordingly.
+A IA não adivinha. Ela lê suas convenções e constrói de acordo com elas.
 
-## Why does this matter?
+## Por que isso importa?
 
-Without a structured context file, every AI session starts from zero. You repeat yourself. The AI makes different choices each time. Code becomes inconsistent.
+Sem um arquivo de contexto estruturado, cada sessão com a IA começa do zero. Você se repete. A IA faz escolhas diferentes a cada vez. O código fica inconsistente.
 
-With `CLAUDE.md`, the AI is a consistent team member that knows your codebase.
+Com o `CLAUDE.md`, a IA é um membro consistente do time que conhece sua base de código.
 
-## What's included
+## O que está incluído
 
-- A **real, working SPA** — not a scaffold with TODOs
-- A **CLAUDE.md** with your full development standards
-- **AI commands** (`/figma`, `/commit`) built into the project
-- A **production-grade stack** configured and ready
-- **Tests, linting, CI** set up from day one
+- Um **SPA real e funcional** — não um scaffold cheio de TODOs
+- Um **CLAUDE.md** com todos os seus padrões de desenvolvimento
+- **Comandos de IA** (`/figma`, `/commit`) integrados ao projeto
+- Um **stack de produção** configurado e pronto para uso
+- **Testes, linting e CI** configurados desde o primeiro dia

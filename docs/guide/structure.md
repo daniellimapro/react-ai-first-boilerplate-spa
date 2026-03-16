@@ -1,80 +1,80 @@
-# Project Structure
+# Estrutura do Projeto
 
-This project follows **feature-based colocation**: code lives next to where it's used, not in global folders.
+Este projeto segue a **colocação baseada em features**: o código fica próximo de onde é usado, não em pastas globais.
 
-## Directory Layout
+## Layout de Diretórios
 
 ```
 src/
 ├── app/
-│   ├── routes/              # TanStack Router file-based routes
-│   │   ├── __root.tsx       # Root layout (header, nav, outlet)
-│   │   ├── index.tsx        # / — home page
+│   ├── routes/              # Rotas baseadas em arquivo do TanStack Router
+│   │   ├── __root.tsx       # Layout raiz (header, nav, outlet)
+│   │   ├── index.tsx        # / — página inicial
 │   │   ├── about.tsx        # /about
-│   │   └── dashboard.tsx    # /dashboard — protected route example
-│   ├── providers.tsx        # Composes all providers in correct order
-│   └── router.tsx           # Router instance and type registration
+│   │   └── dashboard.tsx    # /dashboard — exemplo de rota protegida
+│   ├── providers.tsx        # Compõe todos os providers na ordem correta
+│   └── router.tsx           # Instância do router e registro de tipos
 │
-├── features/                # One folder per feature (empty by default)
-│   └── checkout/            # Example: checkout feature
-│       ├── components/      # Components used only in checkout
-│       ├── hooks/           # Hooks used only in checkout
+├── features/                # Uma pasta por feature (vazia por padrão)
+│   └── checkout/            # Exemplo: feature de checkout
+│       ├── components/      # Componentes usados apenas no checkout
+│       ├── hooks/           # Hooks usados apenas no checkout
 │       └── index.tsx
 │
-├── shared/                  # Truly shared code
+├── shared/                  # Código verdadeiramente compartilhado
 │   ├── components/
-│   │   ├── ui/              # Shadcn/UI components (you own these files)
+│   │   ├── ui/              # Componentes do Shadcn/UI (você é dono desses arquivos)
 │   │   ├── error-boundary.tsx
 │   │   ├── theme-toggle.tsx
 │   │   └── language-selector.tsx
 │   ├── hooks/
-│   │   └── use-auth.ts      # Auth hook (reads auth.store)
+│   │   └── use-auth.ts      # Hook de auth (lê auth.store)
 │   ├── lib/
-│   │   ├── api.ts           # Fetch wrapper with Bearer token injection
-│   │   ├── env.ts           # Env var validation with Zod
-│   │   ├── i18n.ts          # i18next configuration
-│   │   ├── msw.ts           # MSW setup
-│   │   ├── query-client.ts  # React Query client instance
-│   │   └── utils.ts         # cn() and general utilities
+│   │   ├── api.ts           # Wrapper de fetch com injeção de token Bearer
+│   │   ├── env.ts           # Validação de variáveis de ambiente com Zod
+│   │   ├── i18n.ts          # Configuração do i18next
+│   │   ├── msw.ts           # Setup do MSW
+│   │   ├── query-client.ts  # Instância do cliente React Query
+│   │   └── utils.ts         # cn() e utilitários gerais
 │   ├── locales/
 │   │   ├── en/common.json
 │   │   └── pt-BR/common.json
 │   ├── mocks/
-│   │   ├── browser.ts       # MSW browser worker
-│   │   └── handlers.ts      # MSW request handlers
+│   │   ├── browser.ts       # Worker do MSW para o navegador
+│   │   └── handlers.ts      # Handlers de requisição do MSW
 │   ├── stores/
-│   │   ├── auth.store.ts    # Global auth state
-│   │   └── example.store.ts # Counter example (demonstrates pattern)
+│   │   ├── auth.store.ts    # Estado global de autenticação
+│   │   └── example.store.ts # Exemplo de contador (demonstra o padrão)
 │   └── types/
-│       └── index.ts         # Shared TypeScript types
+│       └── index.ts         # Tipos TypeScript compartilhados
 │
 ├── test/
-│   ├── setup.ts             # Vitest + Testing Library setup
-│   └── *.test.tsx           # Test files
+│   ├── setup.ts             # Setup do Vitest + Testing Library
+│   └── *.test.tsx           # Arquivos de teste
 │
-├── main.tsx                 # App entry point
-└── index.css                # Global styles + Tailwind + CSS variables
+├── main.tsx                 # Ponto de entrada da aplicação
+└── index.css                # Estilos globais + Tailwind + variáveis CSS
 ```
 
-## The Colocation Rule
+## A Regra de Colocação
 
-> If something is only used within one feature, it stays inside that feature's folder.
+> Se algo é usado apenas dentro de uma feature, ele fica dentro da pasta dessa feature.
 
-**Wrong:**
+**Errado:**
 ```
-src/components/CheckoutAddressForm.tsx  ← used only in checkout
+src/components/CheckoutAddressForm.tsx  ← usado apenas no checkout
 ```
 
-**Right:**
+**Certo:**
 ```
 src/features/checkout/components/AddressForm.tsx
 ```
 
-Only promote to `shared/` when two or more distinct features need it.
+Só promova para `shared/` quando duas ou mais features distintas precisarem do mesmo código.
 
-## Adding a New Feature
+## Adicionando uma Nova Feature
 
-1. Create `src/features/your-feature/`
-2. Add components, hooks, and utils inside it
-3. Create a route in `src/app/routes/your-feature.tsx`
-4. Only extract to `shared/` if another feature needs the same thing
+1. Crie `src/features/sua-feature/`
+2. Adicione componentes, hooks e utilitários dentro dela
+3. Crie uma rota em `src/app/routes/sua-feature.tsx`
+4. Só extraia para `shared/` se outra feature precisar da mesma coisa

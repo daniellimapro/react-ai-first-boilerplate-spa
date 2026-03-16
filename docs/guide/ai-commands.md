@@ -1,48 +1,48 @@
-# AI Commands
+# Comandos de IA
 
-This boilerplate ships with two AI commands built into the `CLAUDE.md`. These are instructions for your AI assistant — not shell scripts.
+Este boilerplate vem com dois comandos de IA integrados ao `CLAUDE.md`. São instruções para o seu assistente de IA — não scripts de shell.
 
 ## /figma
 
-Implement a Figma design pixel-perfect in the project.
+Implementa um design do Figma pixel-perfect no projeto.
 
-**Usage:**
+**Uso:**
 ```
-/figma https://figma.com/design/... Implement the checkout form component
+/figma https://figma.com/design/... Implementar o componente de formulário de checkout
 ```
 
-**What the AI does:**
-1. Reads the Figma design via the Figma MCP tool
-2. Identifies which Shadcn/UI components map to the design elements
-3. Implements using Tailwind CSS 4 following the project's conventions
-4. Creates the component in the correct folder (feature or shared)
-5. Types everything strictly — no `any`, proper interfaces
+**O que a IA faz:**
+1. Lê o design do Figma via a ferramenta Figma MCP
+2. Identifica quais componentes do Shadcn/UI se mapeiam aos elementos do design
+3. Implementa usando Tailwind CSS 4 seguindo as convenções do projeto
+4. Cria o componente na pasta correta (feature ou shared)
+5. Tipa tudo de forma estrita — sem `any`, interfaces adequadas
 
-**Requirements:**
-- AI assistant with Figma MCP configured
-- Figma file access
+**Requisitos:**
+- Assistente de IA com Figma MCP configurado
+- Acesso ao arquivo Figma
 
 ## /commit
 
-Generate a conventional commit and create it.
+Gera um commit convencional e o cria.
 
-**Usage:**
+**Uso:**
 ```
 /commit
 ```
 
-**What the AI does:**
-1. Runs `git status` and `git diff` to understand what changed
-2. Classifies the change type: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`, `ci`
-3. Writes a descriptive commit message following Conventional Commits
-4. Creates the commit
-5. Never uses `--no-verify`
+**O que a IA faz:**
+1. Executa `git status` e `git diff` para entender o que mudou
+2. Classifica o tipo da mudança: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `style`, `ci`
+3. Escreve uma mensagem de commit descritiva seguindo o Conventional Commits
+4. Cria o commit
+5. Nunca usa `--no-verify`
 
-**Commit format:**
+**Formato do commit:**
 ```
 feat(auth): add Keycloak provider integration
 ```
 
-## Setting up your AI assistant
+## Configurando seu assistente de IA
 
-The `CLAUDE.md` file is automatically loaded by AI assistants that support project context files (Claude Code, Cursor, etc.). Open the project root in your AI assistant and the commands become available.
+O arquivo `CLAUDE.md` é carregado automaticamente por assistentes de IA que suportam arquivos de contexto de projeto (Claude Code, Cursor, etc.). Abra a raiz do projeto no seu assistente e os comandos estarão disponíveis.

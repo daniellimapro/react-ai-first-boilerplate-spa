@@ -777,8 +777,10 @@ html.dark .home-page {
 
 .code-editor__body {
   padding: 16px 0;
-  overflow-x: auto;
+  overflow: hidden;
+  height: 280px;
   min-height: 280px;
+  max-height: 280px;
 }
 
 .code-line {

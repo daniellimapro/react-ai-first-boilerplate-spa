@@ -9,7 +9,7 @@ export default defineConfig({
     root: {
       label: 'Português',
       lang: 'pt-BR',
-      title: 'React AI First Boilerplate',
+      title: 'React AI First',
       description: 'A base React moderna construída para desenvolvimento com IA',
       themeConfig: {
         nav: [
@@ -62,7 +62,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       link: '/en/',
-      title: 'React AI First Boilerplate',
+      title: 'React AI First',
       description: 'A modern React foundation built for AI-driven development',
       themeConfig: {
         nav: [
