@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  ignoreDeadLinks: [/^http:\/\/localhost/],
   title: 'React AI First Boilerplate',
   description: 'A modern React SPA foundation built for AI-driven development',
   base: '/react-ai-first-boilerplate-spa/',

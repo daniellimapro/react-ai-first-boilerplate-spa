@@ -23,6 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Lock files (project uses pnpm — do not commit package-lock.json or yarn.lock)
+package-lock.json
+yarn.lock
+
 # Environment
 .env
 .env.local
