@@ -120,7 +120,7 @@ export default defineConfig({
     ],
     footer: {
       message: 'MIT License',
-      copyright: 'Copyright © 2025 Daniel Lima',
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://danielcodes.com.br" target="_blank" rel="noopener noreferrer">Daniel Lima</a>`,
     },
   },
 
