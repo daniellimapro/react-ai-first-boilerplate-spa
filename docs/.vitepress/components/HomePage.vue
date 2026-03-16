@@ -1,0 +1,1234 @@
+<template>
+  <div class="home-page" :class="{ 'is-dark': isDark }">
+    <section class="hero">
+      <div class="hero__grid-pattern" aria-hidden="true" />
+      <div class="hero__glow" aria-hidden="true" />
+      <div class="container">
+        <div class="hero__badge">
+          <span class="hero__badge-dot" />
+          AI-First · Open Source
+        </div>
+        <h1 class="hero__title">
+          <span class="gradient-text">React AI First</span>
+          <br />
+          Boilerplate SPA
+        </h1>
+        <p class="hero__description">{{ t.hero.description }}</p>
+        <div class="hero__actions">
+          <a :href="startLink" class="btn btn--primary">
+            {{ t.hero.cta }}
+            <span class="btn__arrow">→</span>
+          </a>
+          <a
+            href="https://github.com/daniellimapro/react-ai-first-boilerplate-spa"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--secondary"
+          >
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            GitHub
+          </a>
+        </div>
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <span class="hero__stat-value">19</span>
+            <span class="hero__stat-label">React</span>
+          </div>
+          <div class="hero__stat-divider" />
+          <div class="hero__stat">
+            <span class="hero__stat-value">TypeScript</span>
+            <span class="hero__stat-label">Strict</span>
+          </div>
+          <div class="hero__stat-divider" />
+          <div class="hero__stat">
+            <span class="hero__stat-value">MIT</span>
+            <span class="hero__stat-label">License</span>
+          </div>
+          <div class="hero__stat-divider" />
+          <div class="hero__stat">
+            <span class="hero__stat-value">AI</span>
+            <span class="hero__stat-label">First</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="install">
+      <div class="container">
+        <div class="terminal">
+          <div class="terminal__header">
+            <span class="terminal__dot terminal__dot--red" />
+            <span class="terminal__dot terminal__dot--yellow" />
+            <span class="terminal__dot terminal__dot--green" />
+            <span class="terminal__title">bash</span>
+          </div>
+          <div class="terminal__body">
+            <p class="terminal__line">
+              <span class="terminal__prompt">$</span>
+              <span class="terminal__cmd">pnpm dlx degit daniellimapro/react-ai-first-boilerplate-spa my-app</span>
+            </p>
+            <p class="terminal__line">
+              <span class="terminal__prompt">$</span>
+              <span class="terminal__cmd">cd my-app && pnpm install</span>
+            </p>
+            <p class="terminal__line">
+              <span class="terminal__prompt">$</span>
+              <span class="terminal__cmd">pnpm dev</span>
+            </p>
+            <p class="terminal__line terminal__line--output">
+              <span class="terminal__output">➜  Local:   </span>
+              <span class="terminal__url">http://localhost:5173/</span>
+              <span class="terminal__cursor" />
+            </p>
+          </div>
+        </div>
+        <p class="install__alt">
+          {{ t.install.alt }}
+          <code class="install__code">npx degit daniellimapro/react-ai-first-boilerplate-spa my-app</code>
+        </p>
+      </div>
+    </section>
+
+    <section class="features" ref="featuresRef">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">{{ t.features.title }}</h2>
+          <p class="section-subtitle">{{ t.features.subtitle }}</p>
+        </div>
+        <div class="features__grid">
+          <div
+            v-for="(f, i) in features"
+            :key="f.icon"
+            class="feature-card"
+            :class="{ 'is-visible': featuresVisible }"
+            :style="{ transitionDelay: `${i * 60}ms` }"
+          >
+            <div class="feature-card__icon-wrap">
+              <span class="feature-card__icon">{{ f.icon }}</span>
+            </div>
+            <h3 class="feature-card__title">{{ f.title }}</h3>
+            <p class="feature-card__desc">{{ f.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ai-section" ref="aiRef">
+      <div class="container ai-section__inner">
+        <div class="ai-section__text" :class="{ 'is-visible': aiVisible }">
+          <div class="ai-section__badge">{{ t.ai.badge }}</div>
+          <h2 class="ai-section__title">{{ t.ai.title }}</h2>
+          <p class="ai-section__desc">{{ t.ai.description }}</p>
+          <ul class="ai-section__list">
+            <li v-for="item in t.ai.items" :key="item" class="ai-section__item">
+              <span class="ai-section__check">✓</span>
+              {{ item }}
+            </li>
+          </ul>
+          <a :href="philosophyLink" class="ai-section__link">
+            {{ t.ai.readMore }}
+            <span>→</span>
+          </a>
+        </div>
+        <div class="ai-section__editor" :class="{ 'is-visible': aiVisible }">
+          <div class="editor">
+            <div class="editor__header">
+              <div class="editor__dots">
+                <span class="editor__dot editor__dot--red" />
+                <span class="editor__dot editor__dot--yellow" />
+                <span class="editor__dot editor__dot--green" />
+              </div>
+              <div class="editor__tab">CLAUDE.md</div>
+              <div class="editor__spacer" />
+            </div>
+            <pre class="editor__code"><code><span class="code-comment">## Stack</span>
+<span class="code-key">- Build:</span> <span class="code-val">Vite + React 19 + TypeScript</span>
+<span class="code-key">- Routing:</span> <span class="code-val">TanStack Router (file-based)</span>
+<span class="code-key">- State:</span> <span class="code-val">React Query + Zustand</span>
+<span class="code-key">- Forms:</span> <span class="code-val">React Hook Form + Zod</span>
+<span class="code-key">- Style:</span> <span class="code-val">Tailwind CSS 4 + Shadcn/UI</span>
+
+<span class="code-comment">## Folder Rule</span>
+<span class="code-text">Code lives next to where it's used.</span>
+<span class="code-text">Only promote to shared/ when 2+</span>
+<span class="code-text">features need it.</span>
+
+<span class="code-comment">## /figma</span>
+<span class="code-text">Reads Figma design → implements</span>
+<span class="code-text">pixel-perfect with Shadcn + Tailwind</span>
+
+<span class="code-comment">## /commit</span>
+<span class="code-text">Generates conventional commit</span>
+<span class="code-text">and creates it automatically</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack-section" ref="stackRef">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">{{ t.stack.title }}</h2>
+          <p class="section-subtitle">{{ t.stack.subtitle }}</p>
+        </div>
+        <div class="stack__grid" :class="{ 'is-visible': stackVisible }">
+          <div v-for="item in stackItems" :key="item.name" class="stack-item">
+            <span class="stack-item__name">{{ item.name }}</span>
+            <span class="stack-item__desc">{{ item.desc }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-section__inner">
+          <div class="cta-section__glow" aria-hidden="true" />
+          <h2 class="cta-section__title">{{ t.cta.title }}</h2>
+          <p class="cta-section__desc">{{ t.cta.description }}</p>
+          <div class="cta-section__actions">
+            <a :href="startLink" class="btn btn--primary btn--lg">
+              {{ t.cta.button }}
+              <span class="btn__arrow">→</span>
+            </a>
+            <a
+              href="https://github.com/daniellimapro/react-ai-first-boilerplate-spa"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--ghost btn--lg"
+            >
+              {{ t.cta.github }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { useData } from 'vitepress'
+
+const { isDark, lang } = useData()
+
+const isEn = computed(() => lang.value === 'en-US')
+
+const startLink = computed(() =>
+  isEn.value
+    ? '/react-ai-first-boilerplate-spa/en/guide/getting-started'
+    : '/react-ai-first-boilerplate-spa/guide/getting-started'
+)
+
+const philosophyLink = computed(() =>
+  isEn.value
+    ? '/react-ai-first-boilerplate-spa/en/guide/philosophy'
+    : '/react-ai-first-boilerplate-spa/guide/philosophy'
+)
+
+const translations = {
+  'pt-BR': {
+    hero: {
+      description:
+        'A primeira base React projetada para desenvolvimento com IA. Clone, abra no seu assistente de IA e comece a construir com consistência.',
+      cta: 'Começar agora',
+    },
+    install: {
+      alt: 'Ou com npm:',
+    },
+    features: {
+      title: 'Tudo que você precisa',
+      subtitle: 'Uma stack moderna e opinada, pronta para produção desde o primeiro dia.',
+    },
+    ai: {
+      badge: 'AI-First',
+      title: 'Desenvolvido para IA',
+      description:
+        'O arquivo CLAUDE.md instrui seu assistente de IA com todas as convenções do projeto. Sem repetição, sem inconsistências.',
+      items: [
+        'Stack e convenções documentadas para a IA',
+        'Estrutura de pastas com regra de colocalização',
+        'Padrões de componente, hook, store e service',
+        'Comandos /figma e /commit integrados',
+      ],
+      readMore: 'Ler sobre a filosofia AI-First',
+    },
+    stack: {
+      title: 'Stack moderna e opinada',
+      subtitle: 'Cada ferramenta foi escolhida com propósito.',
+    },
+    cta: {
+      title: 'Pronto para começar?',
+      description:
+        'Clone o projeto, abra no seu assistente de IA e comece a construir features em minutos.',
+      button: 'Ver documentação',
+      github: 'Ver no GitHub',
+    },
+  },
+  'en-US': {
+    hero: {
+      description:
+        'The first React foundation designed for AI-driven development. Clone it, open in your AI assistant and start building consistently.',
+      cta: 'Get started',
+    },
+    install: {
+      alt: 'Or with npm:',
+    },
+    features: {
+      title: 'Everything you need',
+      subtitle: 'A modern, opinionated stack ready for production from day one.',
+    },
+    ai: {
+      badge: 'AI-First',
+      title: 'Built for AI',
+      description:
+        'The CLAUDE.md file instructs your AI assistant with all project conventions. No repetition, no inconsistencies.',
+      items: [
+        'Stack and conventions documented for the AI',
+        'Folder structure with colocation rule',
+        'Component, hook, store and service patterns',
+        'Built-in /figma and /commit commands',
+      ],
+      readMore: 'Read about the AI-First philosophy',
+    },
+    stack: {
+      title: 'Modern, opinionated stack',
+      subtitle: 'Every tool was chosen with purpose.',
+    },
+    cta: {
+      title: 'Ready to start?',
+      description:
+        'Clone the project, open in your AI assistant and start building features in minutes.',
+      button: 'View documentation',
+      github: 'View on GitHub',
+    },
+  },
+}
+
+const t = computed(
+  () =>
+    translations[lang.value as keyof typeof translations] ?? translations['en-US']
+)
+
+const featuresPtBR = [
+  {
+    icon: '🤖',
+    title: 'AI-First por design',
+    description:
+      'CLAUDE.md com convenções completas para seu assistente de IA trabalhar com autonomia e consistência.',
+  },
+  {
+    icon: '⚡',
+    title: 'Vite + React 19',
+    description:
+      'Build ultra-rápido com Vite, React 19 com concurrent features e TypeScript strict em todo lugar.',
+  },
+  {
+    icon: '🗂️',
+    title: 'TanStack Router',
+    description:
+      'Roteamento file-based com type safety completo. Rotas, params e queries tipados de ponta a ponta.',
+  },
+  {
+    icon: '🔄',
+    title: 'React Query + Zustand',
+    description:
+      'Server state e client state separados pelas ferramentas certas. Sem Redux, sem boilerplate.',
+  },
+  {
+    icon: '🎨',
+    title: 'Tailwind 4 + Shadcn/UI',
+    description:
+      'CSS utility-first moderno com biblioteca de componentes que você possui. Zero overhead de runtime.',
+  },
+  {
+    icon: '🧪',
+    title: 'Vitest + MSW',
+    description:
+      'Test runner nativo do Vite, Testing Library para testes de comportamento e MSW para mock realista de APIs.',
+  },
+  {
+    icon: '🔐',
+    title: 'Auth Slot',
+    description:
+      'Estrutura de autenticação pronta. Conecte Keycloak, Auth0, Clerk ou qualquer provider sem mudar o restante.',
+  },
+  {
+    icon: '🌍',
+    title: 'i18n + Dark Mode',
+    description:
+      'Suporte multilíngue com detecção automática e dark/light mode com sync de preferência do sistema.',
+  },
+]
+
+const featuresEn = [
+  {
+    icon: '🤖',
+    title: 'AI-First by design',
+    description:
+      'CLAUDE.md with full conventions for your AI assistant to work with autonomy and consistency.',
+  },
+  {
+    icon: '⚡',
+    title: 'Vite + React 19',
+    description:
+      'Ultra-fast builds with Vite, React 19 with concurrent features and TypeScript strict everywhere.',
+  },
+  {
+    icon: '🗂️',
+    title: 'TanStack Router',
+    description:
+      'File-based routing with full type safety. Routes, params and queries typed end-to-end.',
+  },
+  {
+    icon: '🔄',
+    title: 'React Query + Zustand',
+    description:
+      'Server state and client state handled by the right tools. No Redux, no boilerplate.',
+  },
+  {
+    icon: '🎨',
+    title: 'Tailwind 4 + Shadcn/UI',
+    description:
+      'Modern utility-first CSS with a component library you own. Zero runtime overhead.',
+  },
+  {
+    icon: '🧪',
+    title: 'Vitest + MSW',
+    description:
+      'Vite-native test runner, Testing Library for behavior tests and MSW for realistic API mocking.',
+  },
+  {
+    icon: '🔐',
+    title: 'Auth Slot',
+    description:
+      'Auth structure ready. Plug in Keycloak, Auth0, Clerk or any provider without changing the rest.',
+  },
+  {
+    icon: '🌍',
+    title: 'i18n + Dark Mode',
+    description:
+      'Multi-language support with auto-detection and dark/light mode with system preference sync.',
+  },
+]
+
+const features = computed(() => (isEn.value ? featuresEn : featuresPtBR))
+
+const stackItems = [
+  { name: 'Vite', desc: 'Build tool' },
+  { name: 'React 19', desc: 'UI Library' },
+  { name: 'TypeScript', desc: 'Strict typing' },
+  { name: 'TanStack Router', desc: 'File-based routing' },
+  { name: 'TanStack Query', desc: 'Server state' },
+  { name: 'Zustand', desc: 'Client state' },
+  { name: 'React Hook Form', desc: 'Forms' },
+  { name: 'Zod', desc: 'Validation' },
+  { name: 'Tailwind CSS 4', desc: 'Styling' },
+  { name: 'Shadcn/UI', desc: 'Components' },
+  { name: 'i18next', desc: 'i18n' },
+  { name: 'next-themes', desc: 'Dark mode' },
+  { name: 'Vitest', desc: 'Testing' },
+  { name: 'MSW', desc: 'API mocking' },
+  { name: 'ESLint + Prettier', desc: 'Code quality' },
+  { name: 'GitHub Actions', desc: 'CI/CD' },
+]
+
+const featuresRef = ref<HTMLElement>()
+const featuresVisible = ref(false)
+const aiRef = ref<HTMLElement>()
+const aiVisible = ref(false)
+const stackRef = ref<HTMLElement>()
+const stackVisible = ref(false)
+
+onMounted(() => {
+  const observe = (el: HTMLElement | undefined, setter: (v: boolean) => void) => {
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setter(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(el)
+  }
+
+  observe(featuresRef.value, (v) => (featuresVisible.value = v))
+  observe(aiRef.value, (v) => (aiVisible.value = v))
+  observe(stackRef.value, (v) => (stackVisible.value = v))
+})
+</script>
+
+<style scoped>
+.home-page {
+  --hp-bg: #ffffff;
+  --hp-bg-secondary: #f8f9fa;
+  --hp-text: #0a0a0a;
+  --hp-text-muted: #6b7280;
+  --hp-border: rgba(0, 0, 0, 0.08);
+  --hp-card-bg: rgba(0, 0, 0, 0.02);
+  --hp-brand: #7c3aed;
+  --hp-brand-2: #3b82f6;
+  --hp-brand-3: #06b6d4;
+  --hp-brand-soft: rgba(124, 58, 237, 0.08);
+  --hp-grid-color: rgba(0, 0, 0, 0.04);
+  --hp-glow: rgba(124, 58, 237, 0.15);
+  --hp-terminal-bg: #1a1a2e;
+  --hp-terminal-text: #e2e8f0;
+  --hp-radius: 12px;
+  font-family: var(--vp-font-family-base);
+  overflow: hidden;
+}
+
+.home-page.is-dark {
+  --hp-bg: #0a0a0a;
+  --hp-bg-secondary: #111111;
+  --hp-text: #fafafa;
+  --hp-text-muted: #9ca3af;
+  --hp-border: rgba(255, 255, 255, 0.08);
+  --hp-card-bg: rgba(255, 255, 255, 0.03);
+  --hp-brand-soft: rgba(124, 58, 237, 0.12);
+  --hp-grid-color: rgba(255, 255, 255, 0.03);
+  --hp-glow: rgba(124, 58, 237, 0.25);
+  --hp-terminal-bg: #0d0d1a;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  background: var(--hp-bg);
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+
+.hero__grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--hp-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hp-grid-color) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.hero__glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, var(--hp-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--hp-border);
+  background: var(--hp-card-bg);
+  color: var(--hp-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 32px;
+  backdrop-filter: blur(8px);
+}
+
+.hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hp-brand);
+  box-shadow: 0 0 8px var(--hp-brand);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--hp-brand); }
+  50% { opacity: 0.6; box-shadow: 0 0 16px var(--hp-brand); }
+}
+
+.hero__title {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--hp-text);
+  margin: 0 0 24px;
+  letter-spacing: -0.03em;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--hp-brand) 0%, var(--hp-brand-2) 50%, var(--hp-brand-3) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero__description {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--hp-text-muted);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.hero__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero__stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--hp-text);
+  font-family: var(--vp-font-family-mono);
+}
+
+.hero__stat-label {
+  font-size: 12px;
+  color: var(--hp-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero__stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--hp-border);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn--primary {
+  background: var(--hp-brand);
+  color: #ffffff;
+  box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+}
+
+.btn--primary:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+}
+
+.btn--secondary {
+  background: var(--hp-card-bg);
+  color: var(--hp-text);
+  border: 1px solid var(--hp-border);
+}
+
+.btn--secondary:hover {
+  background: var(--hp-brand-soft);
+  border-color: var(--hp-brand);
+  color: var(--hp-brand);
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--hp-text-muted);
+  border: 1px solid var(--hp-border);
+}
+
+.btn--ghost:hover {
+  color: var(--hp-text);
+  border-color: var(--hp-text-muted);
+}
+
+.btn--lg {
+  padding: 16px 32px;
+  font-size: 16px;
+}
+
+.btn__arrow {
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .btn__arrow {
+  transform: translateX(3px);
+}
+
+.btn__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.install {
+  background: var(--hp-bg-secondary);
+  padding: 80px 0;
+  border-top: 1px solid var(--hp-border);
+  border-bottom: 1px solid var(--hp-border);
+}
+
+.terminal {
+  background: var(--hp-terminal-bg);
+  border-radius: var(--hp-radius);
+  overflow: hidden;
+  max-width: 680px;
+  margin: 0 auto 24px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.terminal__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal__dot--red { background: #ff5f57; }
+.terminal__dot--yellow { background: #febc2e; }
+.terminal__dot--green { background: #28c840; }
+
+.terminal__title {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--vp-font-family-mono);
+}
+
+.terminal__body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.terminal__line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terminal__prompt {
+  color: #28c840;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.terminal__cmd {
+  color: #e2e8f0;
+}
+
+.terminal__line--output {
+  margin-top: 4px;
+}
+
+.terminal__output {
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--vp-font-family-mono);
+  font-size: 14px;
+}
+
+.terminal__url {
+  color: var(--hp-brand-3);
+  font-family: var(--vp-font-family-mono);
+  font-size: 14px;
+}
+
+.terminal__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background: #e2e8f0;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.install__alt {
+  text-align: center;
+  color: var(--hp-text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.install__code {
+  font-family: var(--vp-font-family-mono);
+  background: var(--hp-border);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--hp-text);
+}
+
+.features {
+  padding: 100px 0;
+  background: var(--hp-bg);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--hp-text);
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: var(--hp-text-muted);
+  margin: 0;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--hp-card-bg);
+  border: 1px solid var(--hp-border);
+  border-radius: var(--hp-radius);
+  padding: 28px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  cursor: default;
+}
+
+.feature-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--hp-brand);
+  box-shadow: 0 0 24px var(--hp-brand-soft), 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card__icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--hp-brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+
+.feature-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--hp-text);
+  margin: 0 0 8px;
+}
+
+.feature-card__desc {
+  font-size: 14px;
+  color: var(--hp-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ai-section {
+  padding: 100px 0;
+  background: var(--hp-bg-secondary);
+  border-top: 1px solid var(--hp-border);
+  border-bottom: 1px solid var(--hp-border);
+}
+
+.ai-section__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.ai-section__text {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+
+.ai-section__text.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ai-section__badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--hp-brand-soft);
+  color: var(--hp-brand);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+
+.ai-section__title {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  color: var(--hp-text);
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.ai-section__desc {
+  font-size: 16px;
+  color: var(--hp-text-muted);
+  line-height: 1.7;
+  margin: 0 0 24px;
+}
+
+.ai-section__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-section__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--hp-text);
+  line-height: 1.5;
+}
+
+.ai-section__check {
+  color: var(--hp-brand);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ai-section__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--hp-brand);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.ai-section__link:hover {
+  gap: 10px;
+}
+
+.ai-section__editor {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.5s ease 0.1s;
+}
+
+.ai-section__editor.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.editor {
+  background: #0d1117;
+  border-radius: var(--hp-radius);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+.editor__header {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 8px;
+}
+
+.editor__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.editor__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.editor__dot--red { background: #ff5f57; }
+.editor__dot--yellow { background: #febc2e; }
+.editor__dot--green { background: #28c840; }
+
+.editor__tab {
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 12px;
+  border-radius: 4px;
+}
+
+.editor__spacer {
+  flex: 1;
+}
+
+.editor__code {
+  padding: 20px 24px;
+  margin: 0;
+  font-family: var(--vp-font-family-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.code-comment { color: #6a9955; }
+.code-key { color: #9cdcfe; }
+.code-val { color: #ce9178; }
+.code-text { color: #d4d4d4; }
+
+.stack-section {
+  padding: 100px 0;
+  background: var(--hp-bg);
+}
+
+.stack__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--hp-border);
+  border-radius: var(--hp-radius);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.4s ease;
+}
+
+.stack__grid.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stack-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 24px;
+  background: var(--hp-card-bg);
+  border-right: 1px solid var(--hp-border);
+  border-bottom: 1px solid var(--hp-border);
+  transition: background 0.2s ease;
+}
+
+.stack-item:hover {
+  background: var(--hp-brand-soft);
+}
+
+.stack-item__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hp-text);
+  font-family: var(--vp-font-family-mono);
+}
+
+.stack-item__desc {
+  font-size: 12px;
+  color: var(--hp-text-muted);
+}
+
+.cta-section {
+  padding: 100px 0;
+  background: var(--hp-bg-secondary);
+  border-top: 1px solid var(--hp-border);
+}
+
+.cta-section__inner {
+  position: relative;
+  text-align: center;
+  padding: 80px 40px;
+  border: 1px solid var(--hp-border);
+  border-radius: 16px;
+  background: var(--hp-card-bg);
+  overflow: hidden;
+}
+
+.cta-section__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
+  background: radial-gradient(ellipse, var(--hp-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-section__title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: var(--hp-text);
+  margin: 0 0 16px;
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+.cta-section__desc {
+  font-size: 16px;
+  color: var(--hp-text-muted);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.cta-section__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+@media (max-width: 960px) {
+  .ai-section__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .ai-section__text,
+  .ai-section__editor {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 0 60px;
+    min-height: auto;
+  }
+
+  .stack__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero__stats {
+    gap: 16px;
+  }
+
+  .hero__stat-divider {
+    display: none;
+  }
+
+  .features__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-section__inner {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stack__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    justify-content: center;
+  }
+}
+</style>

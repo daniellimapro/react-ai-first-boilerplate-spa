@@ -1,20 +1,195 @@
 :root {
-  --vp-c-brand-1: #3b82f6;
-  --vp-c-brand-2: #2563eb;
-  --vp-c-brand-3: #1d4ed8;
-  --vp-c-brand-soft: rgba(59, 130, 246, 0.14);
+  --vp-c-brand-1: #7c3aed;
+  --vp-c-brand-2: #6d28d9;
+  --vp-c-brand-3: #5b21b6;
+  --vp-c-brand-soft: rgba(124, 58, 237, 0.1);
+  scroll-behavior: smooth;
 }
 
 .dark {
-  --vp-c-brand-1: #60a5fa;
-  --vp-c-brand-2: #3b82f6;
-  --vp-c-brand-3: #2563eb;
-  --vp-c-brand-soft: rgba(96, 165, 250, 0.14);
+  --vp-c-brand-1: #a78bfa;
+  --vp-c-brand-2: #7c3aed;
+  --vp-c-brand-3: #6d28d9;
+  --vp-c-brand-soft: rgba(167, 139, 250, 0.1);
 }
 
-.VPHero .name {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.VPNav {
+  border-bottom: 1px solid var(--vp-c-divider) !important;
+  backdrop-filter: blur(12px) !important;
+  background: rgba(var(--vp-c-bg-rgb, 255, 255, 255), 0.85) !important;
+}
+
+.dark .VPNav {
+  background: rgba(10, 10, 10, 0.85) !important;
+}
+
+.VPNavBar {
+  border-bottom: none !important;
+}
+
+.VPHome {
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+.VPHomeHero,
+.VPHomeFeatures,
+.VPHomeSponsors {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.VPDoc .container {
+  max-width: 900px;
+}
+
+.vp-doc h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.vp-doc h2 {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 24px;
+  margin-top: 48px;
+}
+
+.vp-doc h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.vp-doc p {
+  line-height: 1.75;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.vp-doc a:hover {
+  text-decoration: underline;
+}
+
+.vp-doc code:not(pre code) {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.875em;
+  background: var(--vp-c-default-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-brand-1);
+}
+
+.vp-doc div[class*='language-'] {
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-divider);
+  overflow: hidden;
+}
+
+.vp-doc table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc th {
+  background: var(--vp-c-default-soft);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--vp-c-divider);
+  font-size: 14px;
+}
+
+.vp-doc tr:hover td {
+  background: var(--vp-c-default-soft);
+}
+
+.VPSidebar {
+  border-right: 1px solid var(--vp-c-divider) !important;
+}
+
+.VPSidebarItem.level-0 > .item > .text {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vp-c-text-3);
+}
+
+.VPSidebarItem.is-active > .item > .link > .text {
+  color: var(--vp-c-brand-1);
+}
+
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider) !important;
+}
+
+.VPLocalNav {
+  border-bottom: 1px solid var(--vp-c-divider) !important;
+}
+
+.VPOutline .title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--vp-c-text-3);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+.VPBadge {
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
