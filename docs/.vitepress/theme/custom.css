@@ -3,6 +3,11 @@
   --vp-c-brand-2: #6d28d9;
   --vp-c-brand-3: #5b21b6;
   --vp-c-brand-soft: rgba(124, 58, 237, 0.1);
+  --vp-font-family-base: 'JetBrains Mono', monospace;
+  --vp-font-family-mono: 'JetBrains Mono', monospace;
+  --hp-editor-bg: #f6f8fa;
+  --hp-editor-header: #f0f2f5;
+  --hp-code-default: #24292f;
   scroll-behavior: smooth;
 }
 
@@ -11,6 +16,9 @@
   --vp-c-brand-2: #7c3aed;
   --vp-c-brand-3: #6d28d9;
   --vp-c-brand-soft: rgba(167, 139, 250, 0.1);
+  --hp-editor-bg: #161b22;
+  --hp-editor-header: #0d1117;
+  --hp-code-default: #abb2bf;
 }
 
 * {

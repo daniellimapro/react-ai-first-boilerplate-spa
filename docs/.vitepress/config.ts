@@ -106,7 +106,6 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },
     socialLinks: [
       {
         icon: 'github',
@@ -129,9 +128,8 @@ export default defineConfig({
         content: 'A modern React foundation built for AI-driven development',
       },
     ],
-    [
-      'link',
-      { rel: 'icon', href: '/react-ai-first-boilerplate-spa/favicon.svg' },
-    ],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap' }],
   ],
 })

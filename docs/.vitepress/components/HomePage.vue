@@ -1,55 +1,59 @@
 <template>
   <div class="home-page" :class="{ 'is-dark': isDark }">
     <section class="hero">
-      <div class="hero__grid-pattern" aria-hidden="true" />
-      <div class="hero__glow" aria-hidden="true" />
-      <div class="container">
-        <div class="hero__badge">
-          <span class="hero__badge-dot" />
-          AI-First · Open Source
+      <div class="hero__grid" aria-hidden="true" />
+      <div class="container hero__container">
+        <!-- Left -->
+        <div class="hero__left">
+          <div class="hero__badge">
+            <span class="hero__badge-dot" />
+            AI-First · Open Source
+          </div>
+          <h1 class="hero__title">
+            The React Boilerplate<br>
+            <span class="gradient-text">For Developers</span>
+          </h1>
+          <p class="hero__description">{{ t.hero.description }}</p>
+          <div class="hero__actions">
+            <a :href="startLink" class="btn btn--primary">
+              {{ t.hero.cta }} <span>→</span>
+            </a>
+            <a href="https://github.com/daniellimapro/react-ai-first-boilerplate-spa" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">
+              GitHub
+            </a>
+          </div>
         </div>
-        <h1 class="hero__title">
-          <span class="gradient-text">React AI First</span>
-          <br />
-          Boilerplate SPA
-        </h1>
-        <p class="hero__description">{{ t.hero.description }}</p>
-        <div class="hero__actions">
-          <a :href="startLink" class="btn btn--primary">
-            {{ t.hero.cta }}
-            <span class="btn__arrow">→</span>
-          </a>
-          <a
-            href="https://github.com/daniellimapro/react-ai-first-boilerplate-spa"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn--secondary"
-          >
-            <svg class="btn__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-            </svg>
-            GitHub
-          </a>
-        </div>
-        <div class="hero__stats">
-          <div class="hero__stat">
-            <span class="hero__stat-value">19</span>
-            <span class="hero__stat-label">React</span>
-          </div>
-          <div class="hero__stat-divider" />
-          <div class="hero__stat">
-            <span class="hero__stat-value">TypeScript</span>
-            <span class="hero__stat-label">Strict</span>
-          </div>
-          <div class="hero__stat-divider" />
-          <div class="hero__stat">
-            <span class="hero__stat-value">MIT</span>
-            <span class="hero__stat-label">License</span>
-          </div>
-          <div class="hero__stat-divider" />
-          <div class="hero__stat">
-            <span class="hero__stat-value">AI</span>
-            <span class="hero__stat-label">First</span>
+
+        <!-- Right: Code Editor -->
+        <div class="hero__right">
+          <div class="code-editor">
+            <div class="code-editor__header">
+              <div class="code-editor__dots">
+                <span class="code-editor__dot code-editor__dot--red" />
+                <span class="code-editor__dot code-editor__dot--yellow" />
+                <span class="code-editor__dot code-editor__dot--green" />
+              </div>
+              <div class="code-editor__tabs">
+                <button
+                  v-for="tab in editorTabs"
+                  :key="tab"
+                  class="code-editor__tab"
+                  :class="{ 'code-editor__tab--active': activeTab === tab }"
+                  @click="activeTab = tab"
+                >{{ tab }}</button>
+              </div>
+            </div>
+            <div class="code-editor__body">
+              <div
+                v-for="(line, i) in currentCode"
+                :key="i"
+                class="code-line"
+                :class="{ 'code-line--highlighted': line.highlight }"
+              >
+                <span class="code-line__num">{{ i + 1 }}</span>
+                <span class="code-line__content" v-html="line.html" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -227,6 +231,55 @@ const philosophyLink = computed(() =>
     ? '/react-ai-first-boilerplate-spa/en/guide/philosophy'
     : '/react-ai-first-boilerplate-spa/guide/philosophy'
 )
+
+const editorTabs = ['route.tsx', 'store.ts', 'use-auth.ts']
+const activeTab = ref('route.tsx')
+
+const codeSnippets: Record<string, { html: string; highlight?: boolean }[]> = {
+  'route.tsx': [
+    { html: `<span class="ct">import</span> <span class="cn">{ createFileRoute }</span> <span class="ct">from</span> <span class="cs">'@tanstack/react-router'</span>` },
+    { html: `<span class="ct">import</span> <span class="cn">{ useQuery }</span> <span class="ct">from</span> <span class="cs">'@tanstack/react-query'</span>` },
+    { html: `` },
+    { html: `<span class="ck">export const</span> <span class="cv">Route</span> <span class="co">=</span> <span class="cf">createFileRoute</span><span class="cp">(</span><span class="cs">'/dashboard'</span><span class="cp">)</span><span class="cp">({</span>` },
+    { html: `  <span class="ck">beforeLoad</span><span class="co">:</span> <span class="cp">()</span> <span class="co">=></span> <span class="cp">{</span>`, highlight: true },
+    { html: `    <span class="ck">const</span> <span class="cn">{ isAuthenticated }</span> <span class="co">=</span> <span class="cf">useAuthStore</span><span class="cp">.</span><span class="cf">getState</span><span class="cp">()</span>`, highlight: true },
+    { html: `    <span class="ck">if</span> <span class="cp">(!</span>isAuthenticated<span class="cp">)</span> <span class="ck">throw</span> <span class="cf">redirect</span><span class="cp">({</span> to<span class="co">:</span> <span class="cs">'/'</span> <span class="cp">})</span>`, highlight: true },
+    { html: `  <span class="cp">},</span>` },
+    { html: `  <span class="ck">component</span><span class="co">:</span> <span class="cn">DashboardPage</span><span class="co">,</span>` },
+    { html: `<span class="cp">})</span>` },
+  ],
+  'store.ts': [
+    { html: `<span class="ct">import</span> <span class="cn">{ create }</span> <span class="ct">from</span> <span class="cs">'zustand'</span>` },
+    { html: `<span class="ct">import</span> <span class="cn">{ persist }</span> <span class="ct">from</span> <span class="cs">'zustand/middleware'</span>` },
+    { html: `` },
+    { html: `<span class="ck">export const</span> <span class="cv">useAuthStore</span> <span class="co">=</span> <span class="cf">create</span><span class="cp">&lt;</span><span class="cn">AuthState</span><span class="cp">&gt;()(</span>` },
+    { html: `  <span class="cf">persist</span><span class="cp">(</span>` },
+    { html: `    <span class="cp">(</span>set<span class="cp">)</span> <span class="co">=></span> <span class="cp">({</span>`, highlight: true },
+    { html: `      token<span class="co">:</span> <span class="ck">null</span><span class="co">,</span>`, highlight: true },
+    { html: `      isAuthenticated<span class="co">:</span> <span class="ck">false</span><span class="co">,</span>`, highlight: true },
+    { html: `      <span class="cf">setAuth</span><span class="co">:</span> <span class="cp">(</span>token<span class="co">,</span> user<span class="cp">)</span> <span class="co">=></span> <span class="cf">set</span><span class="cp">({</span> token<span class="co">,</span> user<span class="co">,</span> isAuthenticated<span class="co">:</span> <span class="ck">true</span> <span class="cp">}),</span>` },
+    { html: `    <span class="cp">}),</span>` },
+    { html: `    <span class="cp">{</span> name<span class="co">:</span> <span class="cs">'auth-storage'</span> <span class="cp">}</span>` },
+    { html: `  <span class="cp">)</span>` },
+    { html: `<span class="cp">)</span>` },
+  ],
+  'use-auth.ts': [
+    { html: `<span class="ct">import</span> <span class="cn">{ useAuthStore }</span> <span class="ct">from</span> <span class="cs">'@/shared/stores/auth.store'</span>` },
+    { html: `` },
+    { html: `<span class="ck">export function</span> <span class="cf">useAuth</span><span class="cp">()</span> <span class="cp">{</span>` },
+    { html: `  <span class="ck">const</span> <span class="cn">{ user, token, isAuthenticated, clearAuth }</span>` },
+    { html: `    <span class="co">=</span> <span class="cf">useAuthStore</span><span class="cp">()</span>`, highlight: true },
+    { html: `` },
+    { html: `  <span class="ck">function</span> <span class="cf">logout</span><span class="cp">()</span> <span class="cp">{</span>`, highlight: true },
+    { html: `    <span class="cf">clearAuth</span><span class="cp">()</span>`, highlight: true },
+    { html: `  <span class="cp">}</span>` },
+    { html: `` },
+    { html: `  <span class="ck">return</span> <span class="cp">{</span> user<span class="co">,</span> token<span class="co">,</span> isAuthenticated<span class="co">,</span> logout <span class="cp">}</span>` },
+    { html: `<span class="cp">}</span>` },
+  ],
+}
+
+const currentCode = computed(() => codeSnippets[activeTab.value] ?? [])
 
 const translations = {
   'pt-BR': {
@@ -475,7 +528,7 @@ onMounted(() => {
   --hp-brand-2: #3b82f6;
   --hp-brand-3: #06b6d4;
   --hp-brand-soft: rgba(124, 58, 237, 0.08);
-  --hp-grid-color: rgba(0, 0, 0, 0.04);
+  --hp-grid-line: rgba(0, 0, 0, 0.06);
   --hp-glow: rgba(124, 58, 237, 0.15);
   --hp-terminal-bg: #1a1a2e;
   --hp-terminal-text: #e2e8f0;
@@ -492,7 +545,7 @@ onMounted(() => {
   --hp-border: rgba(255, 255, 255, 0.08);
   --hp-card-bg: rgba(255, 255, 255, 0.03);
   --hp-brand-soft: rgba(124, 58, 237, 0.12);
-  --hp-grid-color: rgba(255, 255, 255, 0.03);
+  --hp-grid-line: rgba(255, 255, 255, 0.04);
   --hp-glow: rgba(124, 58, 237, 0.25);
   --hp-terminal-bg: #0d0d1a;
 }
@@ -503,80 +556,76 @@ onMounted(() => {
   padding: 0 24px;
 }
 
+/* ===== HERO ===== */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 88vh;
   display: flex;
   align-items: center;
-  background: var(--hp-bg);
   overflow: hidden;
-  padding: 120px 0 80px;
+  background: var(--hp-bg);
 }
 
-.hero__grid-pattern {
+.hero__grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(var(--hp-grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--hp-grid-color) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(var(--hp-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hp-grid-line) 1px, transparent 1px);
+  background-size: 80px 80px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
 }
 
-.hero__glow {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, var(--hp-glow) 0%, transparent 70%);
-  pointer-events: none;
+.hero__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
-.hero .container {
-  position: relative;
-  z-index: 1;
-  text-align: center;
+.hero__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .hero__badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
-  border-radius: 100px;
+  padding: 4px 12px;
   border: 1px solid var(--hp-border);
-  background: var(--hp-card-bg);
-  color: var(--hp-text-muted);
-  font-size: 13px;
+  border-radius: 20px;
+  font-size: 11px;
   font-weight: 500;
-  margin-bottom: 32px;
-  backdrop-filter: blur(8px);
+  letter-spacing: 0.05em;
+  color: var(--hp-text-muted);
+  width: fit-content;
 }
 
 .hero__badge-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--hp-brand);
-  box-shadow: 0 0 8px var(--hp-brand);
-  animation: pulse-dot 2s ease-in-out infinite;
+  background: #22c55e;
+  animation: pulse 2s infinite;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--hp-brand); }
-  50% { opacity: 0.6; box-shadow: 0 0 16px var(--hp-brand); }
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
 }
 
 .hero__title {
-  font-size: clamp(48px, 8vw, 96px);
-  font-weight: 800;
-  line-height: 1.05;
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   color: var(--hp-text);
-  margin: 0 0 24px;
-  letter-spacing: -0.03em;
+  margin: 0;
 }
 
 .gradient-text {
@@ -595,57 +644,133 @@ onMounted(() => {
 }
 
 .hero__description {
-  font-size: clamp(16px, 2vw, 20px);
-  color: var(--hp-text-muted);
-  max-width: 600px;
-  margin: 0 auto 40px;
+  font-size: 14px;
   line-height: 1.7;
+  color: var(--hp-text-muted);
+  max-width: 420px;
+  margin: 0;
 }
 
 .hero__actions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 64px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
-.hero__stats {
+/* ===== CODE EDITOR ===== */
+.hero__right {
+  position: relative;
+}
+
+.code-editor {
+  background: var(--hp-editor-bg);
+  border: 1px solid var(--hp-border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 32px 64px rgba(0,0,0,0.4);
+}
+
+.code-editor__header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--hp-border);
+  background: var(--hp-editor-header);
 }
 
-.hero__stat {
+.code-editor__dots {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-.hero__stat-value {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--hp-text);
-  font-family: var(--vp-font-family-mono);
+.code-editor__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.code-editor__dot--red    { background: #ff5f57; }
+.code-editor__dot--yellow { background: #febc2e; }
+.code-editor__dot--green  { background: #28c840; }
+
+.code-editor__tabs {
+  display: flex;
+  gap: 2px;
 }
 
-.hero__stat-label {
-  font-size: 12px;
+.code-editor__tab {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
   color: var(--hp-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.hero__stat-divider {
-  width: 1px;
-  height: 32px;
+.code-editor__tab:hover {
+  color: var(--hp-text);
   background: var(--hp-border);
 }
 
+.code-editor__tab--active {
+  color: var(--hp-text);
+  background: var(--hp-border);
+  border-bottom: 1px solid var(--vp-c-brand-1);
+}
+
+.code-editor__body {
+  padding: 16px 0;
+  overflow-x: auto;
+  min-height: 280px;
+}
+
+.code-line {
+  display: flex;
+  align-items: baseline;
+  padding: 1px 16px;
+  min-height: 22px;
+  transition: background 0.1s;
+}
+
+.code-line--highlighted {
+  background: rgba(124, 58, 237, 0.12);
+  border-left: 2px solid var(--vp-c-brand-1);
+  padding-left: 14px;
+}
+
+.code-line__num {
+  min-width: 28px;
+  font-size: 11px;
+  color: var(--hp-text-muted);
+  opacity: 0.4;
+  user-select: none;
+  text-align: right;
+  margin-right: 16px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.code-line__content {
+  font-size: 12.5px;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.6;
+  white-space: pre;
+  color: var(--hp-code-default);
+}
+
+/* Syntax token colors */
+.ct { color: #c678dd; }
+.cn { color: #e5c07b; }
+.cs { color: #98c379; }
+.ck { color: #c678dd; }
+.cv { color: #61afef; }
+.cf { color: #61afef; }
+.co { color: #56b6c2; }
+.cp { color: #abb2bf; }
+
+/* ===== BUTTONS ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1191,21 +1316,16 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: 80px 0 60px;
-    min-height: auto;
+  .hero__container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__right {
+    display: none;
   }
 
   .stack__grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero__stats {
-    gap: 16px;
-  }
-
-  .hero__stat-divider {
-    display: none;
   }
 
   .features__grid {
